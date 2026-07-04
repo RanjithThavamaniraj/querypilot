@@ -6,6 +6,7 @@ import { Hero } from "@/components/site/hero";
 import { LearningPaths } from "@/components/site/learning-paths";
 import { LogoCloud } from "@/components/site/logo-cloud";
 import { Navbar } from "@/components/site/navbar";
+import { ProductOverview } from "@/components/site/product-overview";
 import { Toolkit } from "@/components/site/toolkit";
 import { Updates } from "@/components/site/updates";
 
@@ -15,6 +16,7 @@ export default function Home() {
       <Navbar />
       <main className="flex-1">
         <Hero />
+        <ProductOverview />
         <LogoCloud />
         <Features />
         <LearningPaths />
