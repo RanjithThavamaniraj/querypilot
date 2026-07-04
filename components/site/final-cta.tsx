@@ -15,20 +15,17 @@ export function FinalCta() {
             <em className="text-celadon">for good?</em>
           </h2>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-honeydew/70 sm:text-lg">
-            Join thousands of developers and DBAs learning, practicing, and shipping with
-            confidence. Your first path is free—no credit card required.
+            QueryPilot is under active development. Sign up to be first in line when learning
+            paths, labs, and tools go live.
           </p>
           <Button
             render={<Link href="#" />}
             nativeButton={false}
             className="mt-10 h-12 rounded-full px-8 text-base"
           >
-            Start Free
+            Get Early Access
             <ArrowRight data-icon="inline-end" />
           </Button>
-          <p className="mt-6 text-xs text-honeydew/45">
-            Free forever plan · Cancel anytime · SOC 2 Type II
-          </p>
         </div>
       </Reveal>
     </section>

@@ -15,16 +15,14 @@ const difficultyDot: Record<Difficulty, string> = {
 const paths: {
   title: string;
   difficulty: Difficulty;
-  lessons: number;
-  duration: string;
 }[] = [
-  { title: "Developer", difficulty: "Beginner", lessons: 42, duration: "12h" },
-  { title: "Database Administration", difficulty: "Intermediate", lessons: 56, duration: "18h" },
-  { title: "Performance Tuning", difficulty: "Advanced", lessons: 38, duration: "14h" },
-  { title: "Security", difficulty: "Intermediate", lessons: 31, duration: "10h" },
-  { title: "High Availability", difficulty: "Advanced", lessons: 27, duration: "11h" },
-  { title: "Cloud PostgreSQL", difficulty: "Intermediate", lessons: 33, duration: "12h" },
-  { title: "Certification Preparation", difficulty: "All levels", lessons: 64, duration: "20h" },
+  { title: "Developer", difficulty: "Beginner" },
+  { title: "Database Administration", difficulty: "Intermediate" },
+  { title: "Performance Tuning", difficulty: "Advanced" },
+  { title: "Security", difficulty: "Intermediate" },
+  { title: "High Availability", difficulty: "Advanced" },
+  { title: "Cloud PostgreSQL", difficulty: "Intermediate" },
+  { title: "Certification Preparation", difficulty: "All levels" },
 ];
 
 export function LearningPaths() {
@@ -61,8 +59,8 @@ export function LearningPaths() {
                     />
                     {path.difficulty}
                   </span>
-                  <span className="text-sm text-foreground/50 tabular-nums">
-                    {path.lessons} lessons · {path.duration}
+                  <span className="text-sm text-foreground/50">
+                    Curriculum in development
                   </span>
                 </div>
                 <ArrowRight className="hidden size-4 -translate-x-1 self-center text-foreground/30 transition-all duration-300 group-hover:translate-x-0 group-hover:text-ember sm:block" />
@@ -71,13 +69,7 @@ export function LearningPaths() {
           ))}
         </ol>
         <div className="mt-8 flex justify-end">
-          <a
-            href="#"
-            className="group text-sm font-medium text-foreground underline decoration-ember/40 underline-offset-8 transition-colors hover:decoration-ember"
-          >
-            Browse the full catalog
-            <ArrowRight className="ml-1.5 inline size-3.5 transition-transform group-hover:translate-x-0.5" />
-          </a>
+          <p className="text-sm text-foreground/50">Full catalog coming soon</p>
         </div>
       </Reveal>
     </Section>

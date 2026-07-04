@@ -105,10 +105,6 @@ export function Footer() {
           <p className="text-xs text-foreground/45">
             © {new Date().getFullYear()} QueryPilot, Inc. All rights reserved.
           </p>
-          <p className="flex items-center gap-2 text-xs text-foreground/45">
-            <span className="size-1.5 rounded-full bg-moss" />
-            All systems operational
-          </p>
         </div>
       </div>
     </footer>

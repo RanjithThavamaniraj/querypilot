@@ -66,15 +66,12 @@ export function Toolkit() {
             Professional tools, <em className="text-ember">zero setup</em>
           </>
         }
-        description="The utilities working DBAs reach for daily—built in, kept current, and free to use."
+        description="The utilities working DBAs reach for daily—arriving with QueryPilot's first release."
       />
       <div className="grid sm:grid-cols-2 sm:gap-x-16">
         {tools.map((tool, i) => (
           <Reveal key={tool.title} delay={(i % 2) * 0.06}>
-            <a
-              href="#"
-              className="group flex h-full gap-5 border-t border-border py-7 transition-colors"
-            >
+            <div className="group flex h-full gap-5 border-t border-border py-7 transition-colors">
               <tool.icon className="mt-1 size-5 shrink-0 text-foreground/40 transition-colors duration-300 group-hover:text-ember" />
               <div>
                 <h3 className="font-heading text-lg tracking-tight transition-colors duration-300 group-hover:text-ember">
@@ -84,7 +81,7 @@ export function Toolkit() {
                   {tool.description}
                 </p>
               </div>
-            </a>
+            </div>
           </Reveal>
         ))}
       </div>
