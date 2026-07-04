@@ -68,7 +68,7 @@ export function Toolkit() {
         }
         description="The utilities working DBAs reach for daily—arriving with QueryPilot's first release."
       />
-      <div className="grid sm:grid-cols-2 sm:gap-x-16">
+      <div className="grid sm:grid-cols-2 sm:gap-x-10">
         {tools.map((tool, i) => (
           <Reveal key={tool.title} delay={(i % 2) * 0.06}>
             <div className="group flex h-full gap-5 border-t border-border py-7 transition-colors">

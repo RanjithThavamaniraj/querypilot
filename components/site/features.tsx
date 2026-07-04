@@ -4,21 +4,21 @@ import { Section, SectionHeader } from "@/components/site/section";
 const features = [
   {
     number: "i",
-    title: "Interactive Learning",
+    title: "Real Postgres, not simplified examples",
     description:
-      "Structured paths take you from your first SELECT to advanced internals, with live SQL editors and instant feedback on every lesson.",
+      "Every lesson and lab runs against genuine PostgreSQL behavior, so what you learn holds up in production.",
   },
   {
     number: "ii",
-    title: "AI-Powered Guidance",
+    title: "Depth over checklists",
     description:
-      "A PostgreSQL-native assistant explains concepts, reviews your queries, and suggests optimizations grounded in your actual schema.",
+      "We explain the reasoning behind a query plan, index choice, or config value—not just the syntax to copy.",
   },
   {
     number: "iii",
-    title: "Hands-on Labs",
+    title: "One continuous path",
     description:
-      "Break and fix real clusters in sandboxed environments—replication failovers, corrupted indexes, runaway vacuums, and more.",
+      "Learning, practice, and real operations build on each other instead of living in separate, disconnected tools.",
   },
 ];
 
@@ -30,11 +30,10 @@ export function Features() {
         eyebrow="Why QueryPilot"
         title={
           <>
-            Learning, practice, and production—
-            <em className="text-ember">one continuous craft</em>
+            Depth, <em className="text-ember">not shortcuts</em>.
           </>
         }
-        description="One platform that treats learning, practice, and real operations as a single continuous experience."
+        description="QueryPilot is built around how PostgreSQL actually behaves in production, not simplified examples that fall apart under real workloads."
       />
       <div className="grid gap-12 md:grid-cols-3 md:gap-0 md:divide-x md:divide-border">
         {features.map((feature, i) => (

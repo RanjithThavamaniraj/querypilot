@@ -68,9 +68,8 @@ export function ProductOverview() {
           Everything you need to master <em className="text-ember">PostgreSQL</em>.
         </h2>
         <p className="mt-6 text-base leading-relaxed text-muted-foreground sm:text-lg">
-          Learn, practice, optimize, and deploy PostgreSQL with a single modern
-          platform designed for developers, database administrators, and cloud
-          engineers.
+          Learn, practice, optimize, and deploy PostgreSQL—from your first query
+          to production operations.
         </p>
       </Reveal>
       <div className="grid gap-x-10 gap-y-0 sm:grid-cols-2 lg:grid-cols-3">
