@@ -11,6 +11,7 @@
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-serif);
   --font-heading: var(--font-serif);
+  --font-display: var(--font-inter);
   --color-honeydew: #ebf5df;
   --color-celadon: #bad4aa;
   --color-ember: #bc5d2e;
