@@ -5,7 +5,6 @@ import { Footer } from "@/components/site/footer";
 import { Hero } from "@/components/site/hero";
 import { LearningPaths } from "@/components/site/learning-paths";
 import { LogoCloud } from "@/components/site/logo-cloud";
-import { Navbar } from "@/components/site/navbar";
 import { ProductOverview } from "@/components/site/product-overview";
 import { Toolkit } from "@/components/site/toolkit";
 import { Updates } from "@/components/site/updates";
@@ -13,7 +12,6 @@ import { Updates } from "@/components/site/updates";
 export default function Home() {
   return (
     <>
-      <Navbar />
       <main className="flex-1">
         <Hero />
         <ProductOverview />
