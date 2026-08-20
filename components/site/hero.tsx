@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 import { Logo } from "@/components/site/logo";
 
 const navigation = [
-  { label: "Learning", href: "#learning-paths" },
+  { label: "Learning", href: "/learn" },
   { label: "Labs", href: "#features" },
   { label: "AI", href: "#ai" },
   { label: "Tools", href: "#tools" },
