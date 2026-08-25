@@ -1,4 +1,4 @@
-import { and, desc, eq, sql } from "drizzle-orm";
+import { and, eq, inArray, sql } from "drizzle-orm";
 import { cookies } from "next/headers";
 
 import { db } from "@/lib/db";
@@ -9,13 +9,24 @@ import {
   quizAttempts,
   users,
 } from "@/lib/db/schema";
-import { getPathCheckpointQuizId, getPathLessons } from "@/lib/learn/content";
+import { getPathCheckpoints, getPathLessons } from "@/lib/learn/content";
 import type {
   LearnerProgressSnapshot,
   LessonProgressStatus,
+  PathCheckpointScore,
 } from "@/lib/learn/types";
 
 export const LEARNER_COOKIE = "qp_learner_id";
+
+function emptyCheckpointScores(pathSlug: string): PathCheckpointScore[] {
+  return getPathCheckpoints(pathSlug).map((checkpoint) => ({
+    quizId: checkpoint.quizId,
+    title: checkpoint.title,
+    bestScore: null,
+    maxScore: checkpoint.maxScore,
+    passed: false,
+  }));
+}
 
 function emptyProgress(pathSlug: string): LearnerProgressSnapshot {
   const lessons = getPathLessons(pathSlug);
@@ -30,8 +41,7 @@ function emptyProgress(pathSlug: string): LearnerProgressSnapshot {
     totalLessonCount: lessons.length,
     completionPercent: 0,
     continueLessonSlug: lessons[0]?.slug ?? null,
-    bestQuizScore: null,
-    quizPassed: false,
+    checkpointScores: emptyCheckpointScores(pathSlug),
     conceptsSeen: [],
   };
 }
@@ -108,25 +118,36 @@ export async function getLearnerProgress(
   const continueLesson =
     lessons.find((lesson) => lessonStatuses[lesson.slug] !== "completed") ?? null;
 
-  const checkpointQuizId = getPathCheckpointQuizId(pathSlug);
-  const quizRows = checkpointQuizId
-    ? await db
-        .select()
-        .from(quizAttempts)
-        .where(
-          and(
-            eq(quizAttempts.userId, userId),
-            eq(quizAttempts.quizId, checkpointQuizId)
-          )
-        )
-        .orderBy(desc(quizAttempts.submittedAt))
-    : [];
+  const checkpoints = getPathCheckpoints(pathSlug);
+  const quizIds = checkpoints.map((checkpoint) => checkpoint.quizId);
+  const quizRows =
+    quizIds.length === 0
+      ? []
+      : await db
+          .select()
+          .from(quizAttempts)
+          .where(
+            and(
+              eq(quizAttempts.userId, userId),
+              inArray(quizAttempts.quizId, quizIds)
+            )
+          );
 
-  const bestQuizScore =
-    quizRows.length === 0
-      ? null
-      : Math.max(...quizRows.map((row) => row.score));
-  const quizPassed = quizRows.some((row) => row.passed);
+  const checkpointScores: PathCheckpointScore[] = checkpoints.map(
+    (checkpoint) => {
+      const rows = quizRows.filter((row) => row.quizId === checkpoint.quizId);
+      return {
+        quizId: checkpoint.quizId,
+        title: checkpoint.title,
+        bestScore:
+          rows.length === 0
+            ? null
+            : Math.max(...rows.map((row) => row.score)),
+        maxScore: checkpoint.maxScore,
+        passed: rows.some((row) => row.passed),
+      };
+    }
+  );
 
   const conceptRows = await db
     .select()
@@ -139,8 +160,7 @@ export async function getLearnerProgress(
     totalLessonCount,
     completionPercent,
     continueLessonSlug: continueLesson?.slug ?? null,
-    bestQuizScore,
-    quizPassed,
+    checkpointScores,
     conceptsSeen: conceptRows.map((row) => row.conceptId),
   };
 }

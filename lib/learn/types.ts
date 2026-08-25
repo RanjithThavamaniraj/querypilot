@@ -153,13 +153,20 @@ export type QuizDefinition = {
 
 export type LessonProgressStatus = "not_started" | "in_progress" | "completed";
 
+export type PathCheckpointScore = {
+  quizId: string;
+  title: string;
+  bestScore: number | null;
+  maxScore: number;
+  passed: boolean;
+};
+
 export type LearnerProgressSnapshot = {
   lessonStatuses: Record<string, LessonProgressStatus>;
   completedLessonCount: number;
   totalLessonCount: number;
   completionPercent: number;
   continueLessonSlug: string | null;
-  bestQuizScore: number | null;
-  quizPassed: boolean;
+  checkpointScores: PathCheckpointScore[];
   conceptsSeen: string[];
 };

@@ -75,12 +75,23 @@ export function getQuiz(id: string) {
   return quizzes[id] ?? null;
 }
 
+export function getPathCheckpoints(pathSlug: string) {
+  return getPathLessons(pathSlug).flatMap((lesson) => {
+    if (!lesson.quizId) return [];
+    const quiz = getQuiz(lesson.quizId);
+    return [
+      {
+        quizId: lesson.quizId,
+        title: (quiz?.title ?? lesson.title).replace(/\s+Checkpoint$/i, ""),
+        maxScore: quiz?.questions.length ?? 10,
+      },
+    ];
+  });
+}
+
 export function getPathCheckpointQuizId(pathSlug: string) {
-  const lessons = getPathLessons(pathSlug);
-  for (let index = lessons.length - 1; index >= 0; index -= 1) {
-    if (lessons[index]?.quizId) return lessons[index].quizId!;
-  }
-  return null;
+  const checkpoints = getPathCheckpoints(pathSlug);
+  return checkpoints[checkpoints.length - 1]?.quizId ?? null;
 }
 
 export function getArchitectureConcept(id: string) {

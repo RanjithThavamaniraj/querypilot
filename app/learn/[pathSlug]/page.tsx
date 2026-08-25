@@ -85,11 +85,22 @@ export default async function PathPage({
             {progress.completedLessonCount} of {progress.totalLessonCount}{" "}
             lessons complete
           </p>
-          {progress.bestQuizScore !== null && (
-            <p className="mt-2 text-sm text-muted-foreground">
-              Best checkpoint score: {progress.bestQuizScore}/10
-              {progress.quizPassed ? " (passed)" : ""}
-            </p>
+          {progress.checkpointScores.length > 0 && (
+            <div className="mt-4">
+              <p className="text-sm text-muted-foreground">Checkpoints</p>
+              <ul className="mt-1 space-y-1 text-sm text-muted-foreground">
+                {progress.checkpointScores.map((checkpoint) => (
+                  <li key={checkpoint.quizId}>
+                    {checkpoint.title}:{" "}
+                    {checkpoint.bestScore === null
+                      ? "not attempted"
+                      : `${checkpoint.bestScore}/${checkpoint.maxScore}${
+                          checkpoint.passed ? " (passed)" : ""
+                        }`}
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
           {progress.continueLessonSlug && (
             <Button
