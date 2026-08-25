@@ -25,6 +25,12 @@ const paths: {
     available: true,
     href: "/learn/foundations",
   },
+  {
+    title: "SQL Fundamentals",
+    difficulty: "Beginner",
+    available: true,
+    href: "/learn/sql-fundamentals",
+  },
   { title: "Developer", difficulty: "Beginner" },
   { title: "Database Administration", difficulty: "Intermediate" },
   { title: "Performance Tuning", difficulty: "Advanced" },
@@ -93,12 +99,18 @@ export function LearningPaths() {
             );
           })}
         </ol>
-        <div className="mt-8 flex justify-end">
+        <div className="mt-8 flex flex-wrap justify-end gap-4">
           <Link
             href="/learn/foundations"
             className="text-sm font-medium text-ember transition-colors hover:text-ember-deep"
           >
             Start with Foundations →
+          </Link>
+          <Link
+            href="/learn/sql-fundamentals"
+            className="text-sm font-medium text-ember transition-colors hover:text-ember-deep"
+          >
+            Practice SQL →
           </Link>
         </div>
       </Reveal>

@@ -16,7 +16,35 @@ export type LessonBlock =
   | { type: "callout"; tone?: "note" | "tip"; text: string }
   | { type: "diagram"; diagramId: DiagramId }
   | { type: "concept-callout"; conceptId: ArchitectureConceptId }
-  | { type: "dba-later"; text: string };
+  | { type: "dba-later"; text: string }
+  | {
+      type: "sql-playground";
+      title?: string;
+      initialSQL: string;
+      datasetId?: "shop";
+    }
+  | {
+      type: "sql-challenge";
+      challengeId: string;
+    }
+  | {
+      type: "schema-panel";
+      datasetId?: "shop";
+    };
+
+export type SqlChallengeDefinition = {
+  id: string;
+  title: string;
+  prompt: string;
+  initialSQL?: string;
+  referenceSQL: string;
+  requiresOrder: boolean;
+  expectedColumns?: string[];
+  successFeedback: string;
+  failureFeedback: string;
+  hint?: string;
+  datasetId?: "shop";
+};
 
 export type LessonDefinition = {
   slug: string;

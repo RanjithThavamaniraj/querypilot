@@ -81,3 +81,22 @@ export const conceptProgress = pgTable(
     unique("concept_progress_user_concept").on(table.userId, table.conceptId),
   ]
 );
+
+export const exerciseAttempts = pgTable("exercise_attempts", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  exerciseId: text("exercise_id").notNull(),
+  pathSlug: text("path_slug").notNull(),
+  lessonSlug: text("lesson_slug").notNull(),
+  submission: text("submission").notNull(),
+  passed: boolean("passed").notNull(),
+  feedback: text("feedback"),
+  resultPreview: jsonb("result_preview"),
+  errorMessage: text("error_message"),
+  durationMs: integer("duration_ms"),
+  submittedAt: timestamp("submitted_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});

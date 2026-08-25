@@ -1,15 +1,20 @@
+"use client";
+
 import Link from "next/link";
 
-import { getArchitectureConcept, getDiagram } from "@/lib/learn/content";
+import { getArchitectureConcept, getDiagram, getSqlChallenge } from "@/lib/learn/content";
 import type { ArchitectureConceptId, LessonBlock } from "@/lib/learn/types";
 import { cn } from "@/lib/utils";
 
 import { ArchitectureDiagram } from "./architecture-diagram";
+import { SqlPlayground } from "./sql-playground";
+import { SqlSchemaPanel } from "./sql-schema-panel";
 
 function ConceptCallout({ conceptId }: { conceptId: ArchitectureConceptId }) {
   const concept = getArchitectureConcept(conceptId);
   if (!concept) return null;
-  const layer = concept.layers.find((item) => item.layer === 0) ?? concept.layers[0];
+  const layer =
+    [...concept.layers].sort((a, b) => b.layer - a.layer)[0] ?? concept.layers[0];
 
   return (
     <aside className="rounded-2xl border border-plum/25 bg-plum/5 px-5 py-4">
@@ -28,7 +33,17 @@ function ConceptCallout({ conceptId }: { conceptId: ArchitectureConceptId }) {
   );
 }
 
-export function LessonBlocks({ blocks }: { blocks: LessonBlock[] }) {
+export function LessonBlocks({
+  blocks,
+  pathSlug,
+  lessonSlug,
+  onSqlChallengePassed,
+}: {
+  blocks: LessonBlock[];
+  pathSlug: string;
+  lessonSlug: string;
+  onSqlChallengePassed?: () => void;
+}) {
   return (
     <div className="space-y-6">
       {blocks.map((block, index) => {
@@ -123,6 +138,34 @@ export function LessonBlocks({ blocks }: { blocks: LessonBlock[] }) {
                 <p className="mt-2">{block.text}</p>
               </div>
             );
+          case "schema-panel":
+            return (
+              <SqlSchemaPanel key={index} datasetId={block.datasetId ?? "shop"} />
+            );
+          case "sql-playground":
+            return (
+              <SqlPlayground
+                key={index}
+                pathSlug={pathSlug}
+                lessonSlug={lessonSlug}
+                title={block.title}
+                initialSQL={block.initialSQL}
+              />
+            );
+          case "sql-challenge": {
+            const challenge = getSqlChallenge(block.challengeId);
+            if (!challenge) return null;
+            return (
+              <SqlPlayground
+                key={index}
+                pathSlug={pathSlug}
+                lessonSlug={lessonSlug}
+                initialSQL={challenge.initialSQL ?? "SELECT "}
+                challenge={challenge}
+                onChallengePassed={onSqlChallengePassed}
+              />
+            );
+          }
           default:
             return null;
         }

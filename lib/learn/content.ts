@@ -3,21 +3,30 @@ import { getDiagram } from "@/content/learn/architecture/diagrams";
 import { objectHierarchyExercise } from "@/content/learn/paths/foundations/exercises/map-object-hierarchy";
 import { foundationsPath } from "@/content/learn/paths/foundations/path";
 import { architectureBeginnerCheckpoint } from "@/content/learn/paths/foundations/quizzes/architecture-beginner-checkpoint";
+import { sqlChallenges } from "@/content/learn/paths/sql-fundamentals/exercises/sql-challenges";
+import { sqlFundamentalsPath } from "@/content/learn/paths/sql-fundamentals/path";
+import { sqlBasicsCheckpoint } from "@/content/learn/paths/sql-fundamentals/quizzes/sql-basics-checkpoint";
 import type {
   ExerciseDefinition,
   LessonDefinition,
   PathDefinition,
   QuizDefinition,
+  SqlChallengeDefinition,
 } from "@/lib/learn/types";
 
-const paths: PathDefinition[] = [foundationsPath];
+const paths: PathDefinition[] = [foundationsPath, sqlFundamentalsPath];
 
 const exercises: Record<string, ExerciseDefinition> = {
   [objectHierarchyExercise.id]: objectHierarchyExercise,
 };
 
+const sqlChallengeMap: Record<string, SqlChallengeDefinition> = Object.fromEntries(
+  sqlChallenges.map((challenge) => [challenge.id, challenge])
+);
+
 const quizzes: Record<string, QuizDefinition> = {
   [architectureBeginnerCheckpoint.id]: architectureBeginnerCheckpoint,
+  [sqlBasicsCheckpoint.id]: sqlBasicsCheckpoint,
 };
 
 export function listPaths() {
@@ -58,8 +67,20 @@ export function getExercise(id: string) {
   return exercises[id] ?? null;
 }
 
+export function getSqlChallenge(id: string) {
+  return sqlChallengeMap[id] ?? null;
+}
+
 export function getQuiz(id: string) {
   return quizzes[id] ?? null;
+}
+
+export function getPathCheckpointQuizId(pathSlug: string) {
+  const lessons = getPathLessons(pathSlug);
+  for (let index = lessons.length - 1; index >= 0; index -= 1) {
+    if (lessons[index]?.quizId) return lessons[index].quizId!;
+  }
+  return null;
 }
 
 export function getArchitectureConcept(id: string) {

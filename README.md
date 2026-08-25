@@ -1,6 +1,9 @@
 # QueryPilot
 
-QueryPilot is a PostgreSQL learning platform. Phase 1 includes the public marketing homepage and the Foundations learning path with guest progress persistence.
+QueryPilot is a PostgreSQL learning platform.
+
+Phase 1: Foundations (concepts, architecture diagrams, checkpoint)
+Phase 2 Module 1: SQL Fundamentals (live SELECT practice against `querypilot_lab`)
 
 ## Requirements
 
@@ -15,38 +18,66 @@ QueryPilot is a PostgreSQL learning platform. Phase 1 includes the public market
 npm install
 ```
 
-2. Copy the environment template and set your local database URL:
+2. Copy the environment template:
 
 ```bash
 cp .env.example .env.local
 ```
 
-3. Create the database and run migrations:
+3. Create the **app** database and run migrations:
 
 ```bash
 createdb querypilot
 npm run db:migrate
 ```
 
-4. Start the development server:
+4. Provision the **lab** database (separate from the app DB):
+
+```bash
+chmod +x scripts/lab/setup.sh
+./scripts/lab/setup.sh
+```
+
+This creates `querypilot_lab`, loads the `shop` dataset, and creates the restricted
+runtime role `querypilot_learner` (SELECT-only on `shop`).
+
+5. Confirm `.env.local` includes:
+
+```bash
+DATABASE_URL=postgresql://localhost:5432/querypilot
+LAB_DATABASE_URL=postgresql://querypilot_learner:querypilot_learner_dev@localhost:5432/querypilot_lab
+```
+
+`LAB_DATABASE_URL` must use `querypilot_learner` — never a superuser or provisioning account.
+
+6. Start the development server:
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) for the homepage and [http://localhost:3000/learn](http://localhost:3000/learn) for the learning app.
+- Homepage: http://localhost:3000
+- Learn: http://localhost:3000/learn
+- SQL Fundamentals: http://localhost:3000/learn/sql-fundamentals
 
 ## Scripts
 
-- `npm run dev` — start the development server
+- `npm run dev` — development server
 - `npm run build` — production build
 - `npm run lint` — ESLint
-- `npm run db:generate` — generate Drizzle migrations from schema changes
-- `npm run db:migrate` — apply migrations
+- `npm run db:generate` — generate Drizzle migrations (app DB)
+- `npm run db:migrate` — apply app DB migrations
+- `./scripts/lab/setup.sh` — provision lab DB, schema, seed, learner role
 
-## Phase 1 scope
+## Security model (lab)
+
+- App DB (`querypilot`): progress and accounts only
+- Lab DB (`querypilot_lab`): educational SQL only
+- Runtime learner SQL executes as `querypilot_learner` with SELECT on `shop` only
+- Server-side guards: single statement, timeouts, row limits, rate limits
+
+## Phase scope
 
 - `/` — marketing homepage
-- `/learn` — learning home
-- `/learn/foundations` — Foundations path
-- `/learn/foundations/[lessonSlug]` — lesson pages with diagrams, exercise, checkpoint quiz, and guest progress
+- `/learn/foundations` — Phase 1
+- `/learn/sql-fundamentals` — Phase 2 Module 1 (SQL Basics)

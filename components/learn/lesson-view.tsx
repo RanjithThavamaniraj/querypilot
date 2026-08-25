@@ -63,7 +63,11 @@ export function LessonView({
         </div>
       </div>
 
-      <LessonBlocks blocks={lesson.blocks} />
+      <LessonBlocks
+        blocks={lesson.blocks}
+        pathSlug={pathSlug}
+        lessonSlug={lesson.slug}
+      />
 
       {exercise && (
         <div className="mt-10">

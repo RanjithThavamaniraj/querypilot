@@ -72,6 +72,12 @@ export const architectureConcepts: ArchitectureConcept[] = [
         explanation:
           "At a beginner level, think of this pipeline: SQL arrives, PostgreSQL parses it, plans how to run it, executes that plan, reads data through buffers or disk, and returns a result. You do not need the internals yet—just the map.",
       },
+      {
+        layer: 1,
+        summary: "When you click Run, your SQL enters the same PostgreSQL query flow.",
+        explanation:
+          "Your editor sends SQL to the PostgreSQL server. PostgreSQL parses the statement, plans how to fetch rows, executes that plan against the shop tables, and returns a result set. SQL is not magic—it is processed through this pipeline every time.",
+      },
     ],
     diagram: "query-flow",
     dba: {

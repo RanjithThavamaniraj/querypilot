@@ -4,11 +4,12 @@ import { cookies } from "next/headers";
 import { db } from "@/lib/db";
 import {
   conceptProgress,
+  exerciseAttempts,
   lessonProgress,
   quizAttempts,
   users,
 } from "@/lib/db/schema";
-import { getPathLessons } from "@/lib/learn/content";
+import { getPathCheckpointQuizId, getPathLessons } from "@/lib/learn/content";
 import type {
   LearnerProgressSnapshot,
   LessonProgressStatus,
@@ -107,16 +108,19 @@ export async function getLearnerProgress(
   const continueLesson =
     lessons.find((lesson) => lessonStatuses[lesson.slug] !== "completed") ?? null;
 
-  const quizRows = await db
-    .select()
-    .from(quizAttempts)
-    .where(
-      and(
-        eq(quizAttempts.userId, userId),
-        eq(quizAttempts.quizId, "architecture-beginner-checkpoint")
-      )
-    )
-    .orderBy(desc(quizAttempts.submittedAt));
+  const checkpointQuizId = getPathCheckpointQuizId(pathSlug);
+  const quizRows = checkpointQuizId
+    ? await db
+        .select()
+        .from(quizAttempts)
+        .where(
+          and(
+            eq(quizAttempts.userId, userId),
+            eq(quizAttempts.quizId, checkpointQuizId)
+          )
+        )
+        .orderBy(desc(quizAttempts.submittedAt))
+    : [];
 
   const bestQuizScore =
     quizRows.length === 0
@@ -244,6 +248,37 @@ export async function recordQuizAttempt(input: {
   if (input.passed) {
     await markLessonCompleted(input.pathSlug, input.lessonSlug);
   } else {
+    await markLessonStarted(input.pathSlug, input.lessonSlug);
+  }
+}
+
+export async function recordExerciseAttempt(input: {
+  exerciseId: string;
+  pathSlug: string;
+  lessonSlug: string;
+  submission: string;
+  passed: boolean;
+  feedback?: string;
+  resultPreview?: unknown;
+  errorMessage?: string;
+  durationMs?: number;
+}) {
+  const userId = await ensureGuestUserId();
+
+  await db.insert(exerciseAttempts).values({
+    userId,
+    exerciseId: input.exerciseId,
+    pathSlug: input.pathSlug,
+    lessonSlug: input.lessonSlug,
+    submission: input.submission,
+    passed: input.passed,
+    feedback: input.feedback,
+    resultPreview: input.resultPreview ?? null,
+    errorMessage: input.errorMessage,
+    durationMs: input.durationMs,
+  });
+
+  if (input.passed) {
     await markLessonStarted(input.pathSlug, input.lessonSlug);
   }
 }

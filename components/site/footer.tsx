@@ -11,6 +11,7 @@ const columns: {
     links: [
       { label: "Learning", href: "/learn" },
       { label: "Foundations", href: "/learn/foundations" },
+      { label: "SQL Fundamentals", href: "/learn/sql-fundamentals" },
       { label: "Hands-on Labs" },
       { label: "AI Assistant" },
       { label: "DBA Toolkit" },
@@ -20,10 +21,10 @@ const columns: {
     heading: "Learning",
     links: [
       { label: "Foundations", href: "/learn/foundations" },
+      { label: "SQL Fundamentals", href: "/learn/sql-fundamentals" },
       { label: "Developer Path" },
       { label: "DBA Path" },
       { label: "Performance Tuning" },
-      { label: "Security" },
     ],
   },
   {

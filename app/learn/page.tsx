@@ -7,9 +7,20 @@ import { getLearnerProgress } from "@/lib/learn/progress";
 
 export default async function LearnHomePage() {
   const paths = listPaths();
-  const foundations = paths[0];
-  const progress = foundations
-    ? await getLearnerProgress(foundations.slug)
+
+  const pathCards = await Promise.all(
+    paths.map(async (path) => ({
+      path,
+      progress: await getLearnerProgress(path.slug),
+    }))
+  );
+
+  const continueTarget =
+    pathCards.find((card) => card.progress.continueLessonSlug)?.path ??
+    pathCards[0]?.path;
+
+  const continueProgress = continueTarget
+    ? pathCards.find((card) => card.path.slug === continueTarget.slug)?.progress
     : null;
 
   return (
@@ -19,60 +30,72 @@ export default async function LearnHomePage() {
         Start learning PostgreSQL
       </h1>
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">
-        QueryPilot is a progressive learning platform. Begin with Foundations:
-        databases, PostgreSQL basics, and the architecture map you will deepen
-        for the rest of the journey.
+        Begin with Foundations, then practice real SQL against a live PostgreSQL
+        dataset in SQL Fundamentals.
       </p>
 
-      {foundations && progress && (
-        <section className="mt-10 rounded-2xl border border-border bg-paper/80 p-6 sm:p-8">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-xl">
-              <p className="eyebrow text-foreground/50">{foundations.levelLabel}</p>
-              <h2 className="mt-2 font-heading text-3xl tracking-tight">
-                {foundations.title}
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {foundations.description}
-              </p>
-              <div className="mt-6 max-w-md">
-                <ProgressBar
-                  value={progress.completionPercent}
-                  label={`${progress.completedLessonCount} of ${progress.totalLessonCount} lessons complete`}
-                />
+      {continueTarget && continueProgress?.continueLessonSlug && (
+        <div className="mt-8">
+          <Button
+            render={
+              <Link
+                href={`/learn/${continueTarget.slug}/${continueProgress.continueLessonSlug}`}
+              />
+            }
+            nativeButton={false}
+          >
+            Continue learning
+          </Button>
+        </div>
+      )}
+
+      <div className="mt-10 space-y-6">
+        {pathCards.map(({ path, progress }) => (
+          <section
+            key={path.slug}
+            className="rounded-2xl border border-border bg-paper/80 p-6 sm:p-8"
+          >
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-xl">
+                <p className="eyebrow text-foreground/50">{path.levelLabel}</p>
+                <h2 className="mt-2 font-heading text-3xl tracking-tight">
+                  {path.title}
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {path.description}
+                </p>
+                <div className="mt-6 max-w-md">
+                  <ProgressBar
+                    value={progress.completionPercent}
+                    label={`${progress.completedLessonCount} of ${progress.totalLessonCount} lessons complete`}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                {progress.continueLessonSlug ? (
+                  <Button
+                    render={
+                      <Link
+                        href={`/learn/${path.slug}/${progress.continueLessonSlug}`}
+                      />
+                    }
+                    nativeButton={false}
+                  >
+                    Continue
+                  </Button>
+                ) : null}
+                <Button
+                  variant="outline"
+                  render={<Link href={`/learn/${path.slug}`} />}
+                  nativeButton={false}
+                >
+                  View path
+                </Button>
               </div>
             </div>
-            <div className="flex flex-wrap gap-3">
-              {progress.continueLessonSlug ? (
-                <Button
-                  render={
-                    <Link
-                      href={`/learn/${foundations.slug}/${progress.continueLessonSlug}`}
-                    />
-                  }
-                  nativeButton={false}
-                >
-                  Continue learning
-                </Button>
-              ) : (
-                <Button
-                  render={<Link href={`/learn/${foundations.slug}`} />}
-                  nativeButton={false}
-                >
-                  Review path
-                </Button>
-              )}
-              <Button
-                variant="outline"
-                render={<Link href={`/learn/${foundations.slug}`} />}
-                nativeButton={false}
-              >
-                View path
-              </Button>
-            </div>
-          </div>
-        </section>
-      )}
+          </section>
+        ))}
+      </div>
     </div>
   );
 }
