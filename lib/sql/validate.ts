@@ -1,3 +1,4 @@
+import { assertSafeLearnerSql } from "@/lib/sql/guards";
 import { executeLearnerSql, normalizeResultRows } from "@/lib/sql/execute";
 import type { SqlChallengeDefinition } from "@/lib/learn/types";
 
@@ -9,12 +10,45 @@ export type ValidationResult = {
   referenceRowCount?: number;
 };
 
+function hasWriteOrTransaction(sql: string) {
+  try {
+    return assertSafeLearnerSql(sql).some((statement) =>
+      /^(insert|update|delete|begin|start)\b/i.test(statement) ||
+      (/^with\b/i.test(statement) &&
+        /\b(insert|update|delete)\b/i.test(statement))
+    );
+  } catch {
+    return false;
+  }
+}
+
 export async function validateSqlChallenge(
   challenge: SqlChallengeDefinition,
   learnerSql: string,
   rateKey: string
 ): Promise<ValidationResult> {
-  const learnerOutcome = await executeLearnerSql(learnerSql, rateKey);
+  const inspectSQL = challenge.inspectSQL;
+
+  if (inspectSQL && !hasWriteOrTransaction(learnerSql)) {
+    return {
+      passed: false,
+      feedback: challenge.failureFeedback,
+      hint:
+        challenge.hint ??
+        "This challenge expects INSERT, UPDATE, DELETE, or a transaction script—not a SELECT alone.",
+      learnerOutcome: {
+        ok: false,
+        postgresMessage: "Write or transaction statement required",
+        beginnerMessage:
+          "This challenge expects a data-change or transaction script, not only SELECT.",
+        hint: challenge.hint,
+      },
+    };
+  }
+
+  const learnerOutcome = await executeLearnerSql(learnerSql, rateKey, {
+    inspectSQL,
+  });
   if (!learnerOutcome.ok) {
     return {
       passed: false,
@@ -26,7 +60,8 @@ export async function validateSqlChallenge(
 
   const referenceOutcome = await executeLearnerSql(
     challenge.referenceSQL,
-    `${rateKey}:reference`
+    `${rateKey}:reference`,
+    { inspectSQL }
   );
 
   if (!referenceOutcome.ok) {

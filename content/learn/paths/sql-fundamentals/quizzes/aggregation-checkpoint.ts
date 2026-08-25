@@ -1,0 +1,130 @@
+import type { QuizDefinition } from "@/lib/learn/types";
+
+export const aggregationCheckpoint: QuizDefinition = {
+  id: "aggregation-checkpoint",
+  title: "Aggregation Checkpoint",
+  description: "Aggregates, GROUP BY, and HAVING.",
+  passScore: 7,
+  questions: [
+    {
+      id: "q1",
+      prompt: "COUNT(*) counts:",
+      options: [
+        { id: "a", label: "Rows" },
+        { id: "b", label: "Only NULL values" },
+        { id: "c", label: "Indexes" },
+        { id: "d", label: "Databases" },
+      ],
+      correctOptionId: "a",
+      explanation: "COUNT(*) counts rows in the filtered set.",
+    },
+    {
+      id: "q2",
+      prompt: "GROUP BY category means:",
+      options: [
+        { id: "a", label: "One result row per category" },
+        { id: "b", label: "Delete categories" },
+        { id: "c", label: "Sort only" },
+        { id: "d", label: "Create a view always" },
+      ],
+      correctOptionId: "a",
+      explanation: "Grouping collapses rows that share the same group keys.",
+    },
+    {
+      id: "q3",
+      prompt: "WHERE vs HAVING:",
+      options: [
+        { id: "a", label: "WHERE filters rows before grouping; HAVING filters groups after" },
+        { id: "b", label: "They are identical" },
+        { id: "c", label: "HAVING runs before FROM" },
+        { id: "d", label: "WHERE only works with JOIN" },
+      ],
+      correctOptionId: "a",
+      explanation: "That timing difference is the core idea.",
+    },
+    {
+      id: "q4",
+      prompt: "HAVING COUNT(*) >= 3 filters:",
+      options: [
+        { id: "a", label: "Groups with at least three rows" },
+        { id: "b", label: "Columns named count" },
+        { id: "c", label: "Only NULL groups" },
+        { id: "d", label: "The database name" },
+      ],
+      correctOptionId: "a",
+      explanation: "HAVING can use aggregate results.",
+    },
+    {
+      id: "q5",
+      prompt: "AVG(price) computes:",
+      options: [
+        { id: "a", label: "The average of price" },
+        { id: "b", label: "The sum only" },
+        { id: "c", label: "The median always" },
+        { id: "d", label: "A join key" },
+      ],
+      correctOptionId: "a",
+      explanation: "AVG is the mean of non-NULL values.",
+    },
+    {
+      id: "q6",
+      prompt: "If SELECT includes category and COUNT(*), you typically need:",
+      options: [
+        { id: "a", label: "GROUP BY category" },
+        { id: "b", label: "DELETE category" },
+        { id: "c", label: "VACUUM" },
+        { id: "d", label: "CROSS JOIN" },
+      ],
+      correctOptionId: "a",
+      explanation: "Non-aggregated selected columns must be grouped.",
+    },
+    {
+      id: "q7",
+      prompt: "SUM(quantity) returns:",
+      options: [
+        { id: "a", label: "Total of quantity values" },
+        { id: "b", label: "Distinct countries" },
+        { id: "c", label: "A boolean" },
+        { id: "d", label: "The first row only" },
+      ],
+      correctOptionId: "a",
+      explanation: "SUM adds numbers.",
+    },
+    {
+      id: "q8",
+      prompt: "MIN and MAX find:",
+      options: [
+        { id: "a", label: "Smallest and largest values" },
+        { id: "b", label: "Only text length" },
+        { id: "c", label: "Foreign keys" },
+        { id: "d", label: "Locks" },
+      ],
+      correctOptionId: "a",
+      explanation: "MIN/MAX return extremes.",
+    },
+    {
+      id: "q9",
+      prompt: "You want average price only for Audio products. Use:",
+      options: [
+        { id: "a", label: "WHERE category = 'Audio' then AVG" },
+        { id: "b", label: "HAVING before FROM" },
+        { id: "c", label: "DELETE Audio" },
+        { id: "d", label: "LIMIT Audio" },
+      ],
+      correctOptionId: "a",
+      explanation: "WHERE filters rows before the aggregate runs.",
+    },
+    {
+      id: "q10",
+      prompt: "Aggregates without GROUP BY return:",
+      options: [
+        { id: "a", label: "One summary row for the filtered table" },
+        { id: "b", label: "One row per original row" },
+        { id: "c", label: "An error always" },
+        { id: "d", label: "A new schema" },
+      ],
+      correctOptionId: "a",
+      explanation: "A bare aggregate collapses the whole input set.",
+    },
+  ],
+};

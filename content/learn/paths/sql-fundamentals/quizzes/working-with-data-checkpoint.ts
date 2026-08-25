@@ -1,0 +1,130 @@
+import type { QuizDefinition } from "@/lib/learn/types";
+
+export const workingWithDataCheckpoint: QuizDefinition = {
+  id: "working-with-data-checkpoint",
+  title: "Working with Data Checkpoint",
+  description: "INSERT, UPDATE, DELETE, and transactions.",
+  passScore: 7,
+  questions: [
+    {
+      id: "q1",
+      prompt: "What does INSERT do?",
+      options: [
+        { id: "a", label: "Removes rows" },
+        { id: "b", label: "Adds new rows" },
+        { id: "c", label: "Creates indexes" },
+        { id: "d", label: "Sorts the table permanently" },
+      ],
+      correctOptionId: "b",
+      explanation: "INSERT adds rows to a table.",
+    },
+    {
+      id: "q2",
+      prompt: "Why is WHERE important on UPDATE and DELETE?",
+      options: [
+        { id: "a", label: "It is required syntax always" },
+        { id: "b", label: "It limits which rows change or disappear" },
+        { id: "c", label: "It creates a backup" },
+        { id: "d", label: "It disables transactions" },
+      ],
+      correctOptionId: "b",
+      explanation: "Without WHERE, every row can be updated or deleted.",
+    },
+    {
+      id: "q3",
+      prompt: "What does COMMIT do?",
+      options: [
+        { id: "a", label: "Undoes the transaction" },
+        { id: "b", label: "Makes the transaction’s changes permanent" },
+        { id: "c", label: "Starts a new database" },
+        { id: "d", label: "Deletes the table" },
+      ],
+      correctOptionId: "b",
+      explanation: "COMMIT keeps the work done since BEGIN.",
+    },
+    {
+      id: "q4",
+      prompt: "What does ROLLBACK do?",
+      options: [
+        { id: "a", label: "Saves changes" },
+        { id: "b", label: "Discards the transaction’s changes" },
+        { id: "c", label: "Creates a user" },
+        { id: "d", label: "Grants privileges" },
+      ],
+      correctOptionId: "b",
+      explanation: "ROLLBACK undoes uncommitted work.",
+    },
+    {
+      id: "q5",
+      prompt: "BEGIN starts:",
+      options: [
+        { id: "a", label: "A transaction" },
+        { id: "b", label: "A new cluster" },
+        { id: "c", label: "Vacuum" },
+        { id: "d", label: "Replication" },
+      ],
+      correctOptionId: "a",
+      explanation: "BEGIN opens a transaction.",
+    },
+    {
+      id: "q6",
+      prompt: "INSERT … SELECT is useful to:",
+      options: [
+        { id: "a", label: "Copy or derive rows from a query into a table" },
+        { id: "b", label: "Drop columns" },
+        { id: "c", label: "Create roles" },
+        { id: "d", label: "Change the server port" },
+      ],
+      correctOptionId: "a",
+      explanation: "INSERT … SELECT inserts the result of a query.",
+    },
+    {
+      id: "q7",
+      prompt: "In QueryPilot practice, learner writes:",
+      options: [
+        { id: "a", label: "Permanently overwrite the shared shop dataset" },
+        { id: "b", label: "Run on a private copy that is discarded after the run" },
+        { id: "c", label: "Write to the application database" },
+        { id: "d", label: "Require the postgres superuser" },
+      ],
+      correctOptionId: "b",
+      explanation: "Writes use a sandboxed copy so the shared educational data stays intact.",
+    },
+    {
+      id: "q8",
+      prompt: "A safe habit before DELETE is:",
+      options: [
+        { id: "a", label: "Skip WHERE to be thorough" },
+        { id: "b", label: "SELECT the target rows first" },
+        { id: "c", label: "Disable the primary key" },
+        { id: "d", label: "Run VACUUM FULL" },
+      ],
+      correctOptionId: "b",
+      explanation: "Preview with SELECT, then DELETE with the same filter.",
+    },
+    {
+      id: "q9",
+      prompt: "UPDATE products SET price = price + 5 WHERE category = 'Audio' changes:",
+      options: [
+        { id: "a", label: "Every product" },
+        { id: "b", label: "Only Audio products" },
+        { id: "c", label: "Only customers" },
+        { id: "d", label: "Nothing" },
+      ],
+      correctOptionId: "b",
+      explanation: "WHERE limits the update to Audio rows.",
+    },
+    {
+      id: "q10",
+      prompt: "Transactions help when:",
+      options: [
+        { id: "a", label: "Several changes should succeed or fail together" },
+        { id: "b", label: "You only ever SELECT" },
+        { id: "c", label: "You want slower queries" },
+        { id: "d", label: "You need CSS" },
+      ],
+      correctOptionId: "a",
+      explanation: "Transactions group related changes into one unit of work.",
+    },
+  ],
+};

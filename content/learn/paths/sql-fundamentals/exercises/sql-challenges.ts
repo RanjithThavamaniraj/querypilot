@@ -1,3 +1,11 @@
+import { workingWithDataChallenges } from "./working-with-data-challenges";
+import { functionChallenges } from "./function-challenges";
+import { aggregationChallenges } from "./aggregation-challenges";
+import { joinChallenges } from "./join-challenges";
+import { subqueryChallenges } from "./subquery-challenges";
+import { cteChallenges } from "./cte-challenges";
+import { windowChallenges } from "./window-challenges";
+import { finalAssessmentChallenges } from "./final-assessment-challenges";
 import type { SqlChallengeDefinition } from "@/lib/learn/types";
 
 export const selectAllCustomers: SqlChallengeDefinition = {
@@ -176,4 +184,12 @@ export const sqlChallenges: SqlChallengeDefinition[] = [
   topThreeProducts,
   indiaCustomersSorted,
   productsPage,
+  ...workingWithDataChallenges,
+  ...functionChallenges,
+  ...aggregationChallenges,
+  ...joinChallenges,
+  ...subqueryChallenges,
+  ...cteChallenges,
+  ...windowChallenges,
+  ...finalAssessmentChallenges,
 ];

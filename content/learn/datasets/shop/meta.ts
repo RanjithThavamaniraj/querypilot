@@ -24,6 +24,7 @@ export const shopTables: ShopTableMeta[] = [
       { name: "email", type: "text", description: "Email address" },
       { name: "country", type: "text", description: "Country of residence" },
       { name: "created_at", type: "date", description: "When the customer signed up" },
+      { name: "phone", type: "text", description: "Phone number; may be NULL or blank" },
     ],
     sampleQuery: "SELECT * FROM customers LIMIT 5;",
     sampleRows: [
@@ -33,6 +34,7 @@ export const shopTables: ShopTableMeta[] = [
         email: "aisha@example.com",
         country: "India",
         created_at: "2024-01-12",
+        phone: "555-0101",
       },
       {
         id: 2,

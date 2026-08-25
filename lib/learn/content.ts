@@ -5,8 +5,16 @@ import { foundationsPath } from "@/content/learn/paths/foundations/path";
 import { architectureBeginnerCheckpoint } from "@/content/learn/paths/foundations/quizzes/architecture-beginner-checkpoint";
 import { sqlChallenges } from "@/content/learn/paths/sql-fundamentals/exercises/sql-challenges";
 import { sqlFundamentalsPath } from "@/content/learn/paths/sql-fundamentals/path";
+import { aggregationCheckpoint } from "@/content/learn/paths/sql-fundamentals/quizzes/aggregation-checkpoint";
+import { ctesCheckpoint } from "@/content/learn/paths/sql-fundamentals/quizzes/ctes-checkpoint";
+import { functionsCheckpoint } from "@/content/learn/paths/sql-fundamentals/quizzes/functions-checkpoint";
+import { joinsCheckpoint } from "@/content/learn/paths/sql-fundamentals/quizzes/joins-checkpoint";
 import { sqlBasicsCheckpoint } from "@/content/learn/paths/sql-fundamentals/quizzes/sql-basics-checkpoint";
+import { sqlFundamentalsAssessment } from "@/content/learn/paths/sql-fundamentals/quizzes/sql-fundamentals-assessment";
 import { sortingLimitingCheckpoint } from "@/content/learn/paths/sql-fundamentals/quizzes/sorting-limiting-checkpoint";
+import { subqueriesCheckpoint } from "@/content/learn/paths/sql-fundamentals/quizzes/subqueries-checkpoint";
+import { windowFunctionsCheckpoint } from "@/content/learn/paths/sql-fundamentals/quizzes/window-functions-checkpoint";
+import { workingWithDataCheckpoint } from "@/content/learn/paths/sql-fundamentals/quizzes/working-with-data-checkpoint";
 import type {
   ExerciseDefinition,
   LessonDefinition,
@@ -29,6 +37,14 @@ const quizzes: Record<string, QuizDefinition> = {
   [architectureBeginnerCheckpoint.id]: architectureBeginnerCheckpoint,
   [sqlBasicsCheckpoint.id]: sqlBasicsCheckpoint,
   [sortingLimitingCheckpoint.id]: sortingLimitingCheckpoint,
+  [workingWithDataCheckpoint.id]: workingWithDataCheckpoint,
+  [functionsCheckpoint.id]: functionsCheckpoint,
+  [aggregationCheckpoint.id]: aggregationCheckpoint,
+  [joinsCheckpoint.id]: joinsCheckpoint,
+  [subqueriesCheckpoint.id]: subqueriesCheckpoint,
+  [ctesCheckpoint.id]: ctesCheckpoint,
+  [windowFunctionsCheckpoint.id]: windowFunctionsCheckpoint,
+  [sqlFundamentalsAssessment.id]: sqlFundamentalsAssessment,
 };
 
 export function listPaths() {

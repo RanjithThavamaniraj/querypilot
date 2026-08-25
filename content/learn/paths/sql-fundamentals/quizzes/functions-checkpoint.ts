@@ -1,0 +1,130 @@
+import type { QuizDefinition } from "@/lib/learn/types";
+
+export const functionsCheckpoint: QuizDefinition = {
+  id: "functions-checkpoint",
+  title: "Functions & Expressions Checkpoint",
+  description: "Expressions, functions, CASE, and NULL.",
+  passScore: 7,
+  questions: [
+    {
+      id: "q1",
+      prompt: "price * 1.1 in SELECT:",
+      options: [
+        { id: "a", label: "Permanently changes stored prices" },
+        { id: "b", label: "Computes a derived value in the result" },
+        { id: "c", label: "Deletes the price column" },
+        { id: "d", label: "Creates an index" },
+      ],
+      correctOptionId: "b",
+      explanation: "SELECT expressions compute output values; they do not UPDATE the table.",
+    },
+    {
+      id: "q2",
+      prompt: "UPPER(name) returns:",
+      options: [
+        { id: "a", label: "Name in lowercase" },
+        { id: "b", label: "Name in uppercase" },
+        { id: "c", label: "Name length" },
+        { id: "d", label: "NULL always" },
+      ],
+      correctOptionId: "b",
+      explanation: "UPPER converts text to capitals.",
+    },
+    {
+      id: "q3",
+      prompt: "COALESCE(phone, 'No phone') returns 'No phone' when:",
+      options: [
+        { id: "a", label: "phone is NULL" },
+        { id: "b", label: "phone is any non-null text" },
+        { id: "c", label: "The table is empty" },
+        { id: "d", label: "You used GROUP BY" },
+      ],
+      correctOptionId: "a",
+      explanation: "COALESCE returns the first non-NULL argument.",
+    },
+    {
+      id: "q4",
+      prompt: "NULL means:",
+      options: [
+        { id: "a", label: "The same as empty string ''" },
+        { id: "b", label: "Unknown / missing" },
+        { id: "c", label: "Zero" },
+        { id: "d", label: "False" },
+      ],
+      correctOptionId: "b",
+      explanation: "NULL is missing information—not '' and not 0.",
+    },
+    {
+      id: "q5",
+      prompt: "To test for NULL use:",
+      options: [
+        { id: "a", label: "phone = NULL" },
+        { id: "b", label: "phone IS NULL" },
+        { id: "c", label: "phone == null" },
+        { id: "d", label: "phone EQUALS NULL" },
+      ],
+      correctOptionId: "b",
+      explanation: "SQL uses IS NULL / IS NOT NULL.",
+    },
+    {
+      id: "q6",
+      prompt: "CASE WHEN price < 50 THEN 'Budget' ELSE 'Other' END:",
+      options: [
+        { id: "a", label: "Labels each row conditionally" },
+        { id: "b", label: "Deletes cheap products" },
+        { id: "c", label: "Creates a new table" },
+        { id: "d", label: "Requires HAVING" },
+      ],
+      correctOptionId: "a",
+      explanation: "CASE is conditional logic in an expression.",
+    },
+    {
+      id: "q7",
+      prompt: "ROUND(price * 1.1, 2) is useful to:",
+      options: [
+        { id: "a", label: "Limit decimal places in a computed value" },
+        { id: "b", label: "Join tables" },
+        { id: "c", label: "Start a transaction" },
+        { id: "d", label: "Create a user" },
+      ],
+      correctOptionId: "a",
+      explanation: "ROUND controls how many decimal places appear.",
+    },
+    {
+      id: "q8",
+      prompt: "ordered_at + 7 typically:",
+      options: [
+        { id: "a", label: "Adds seven days to a date" },
+        { id: "b", label: "Multiplies the date by seven" },
+        { id: "c", label: "Deletes the order" },
+        { id: "d", label: "Joins seven tables" },
+      ],
+      correctOptionId: "a",
+      explanation: "Adding an integer to a date adds days.",
+    },
+    {
+      id: "q9",
+      prompt: "LENGTH(name) returns:",
+      options: [
+        { id: "a", label: "Number of characters in name" },
+        { id: "b", label: "Number of rows in the table" },
+        { id: "c", label: "The primary key" },
+        { id: "d", label: "A boolean" },
+      ],
+      correctOptionId: "a",
+      explanation: "LENGTH measures string length.",
+    },
+    {
+      id: "q10",
+      prompt: "TRIM removes:",
+      options: [
+        { id: "a", label: "Leading and trailing spaces by default" },
+        { id: "b", label: "All vowels" },
+        { id: "c", label: "Primary keys" },
+        { id: "d", label: "NULL forever" },
+      ],
+      correctOptionId: "a",
+      explanation: "TRIM cleans surrounding whitespace.",
+    },
+  ],
+};

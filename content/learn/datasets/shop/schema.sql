@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS shop.customers (
   name text NOT NULL,
   email text NOT NULL,
   country text NOT NULL,
-  created_at date NOT NULL
+  created_at date NOT NULL,
+  phone text
 );
 
 CREATE TABLE IF NOT EXISTS shop.products (
@@ -25,3 +26,5 @@ CREATE TABLE IF NOT EXISTS shop.orders (
   quantity integer NOT NULL,
   ordered_at date NOT NULL
 );
+
+ALTER TABLE shop.customers ADD COLUMN IF NOT EXISTS phone text;

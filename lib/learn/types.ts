@@ -44,6 +44,7 @@ export type SqlChallengeDefinition = {
   failureFeedback: string;
   hint?: string;
   datasetId?: "shop";
+  inspectSQL?: string;
 };
 
 export type LessonDefinition = {

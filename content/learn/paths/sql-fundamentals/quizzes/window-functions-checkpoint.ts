@@ -1,0 +1,130 @@
+import type { QuizDefinition } from "@/lib/learn/types";
+
+export const windowFunctionsCheckpoint: QuizDefinition = {
+  id: "window-functions-checkpoint",
+  title: "Window Functions Checkpoint",
+  description: "OVER, ranking, partitions, LAG/LEAD, running totals.",
+  passScore: 7,
+  questions: [
+    {
+      id: "q1",
+      prompt: "Compared with GROUP BY, window functions:",
+      options: [
+        { id: "a", label: "Keep detail rows and add calculated columns" },
+        { id: "b", label: "Always delete duplicates" },
+        { id: "c", label: "Remove ORDER BY forever" },
+        { id: "d", label: "Disable SELECT" },
+      ],
+      correctOptionId: "a",
+      explanation: "Windows preserve row grain; GROUP BY collapses it.",
+    },
+    {
+      id: "q2",
+      prompt: "OVER() belongs to:",
+      options: [
+        { id: "a", label: "Window function syntax" },
+        { id: "b", label: "DELETE only" },
+        { id: "c", label: "GRANT only" },
+        { id: "d", label: "VACUUM only" },
+      ],
+      correctOptionId: "a",
+      explanation: "Window functions require an OVER clause.",
+    },
+    {
+      id: "q3",
+      prompt: "PARTITION BY category:",
+      options: [
+        { id: "a", label: "Restarts the window calculation per category" },
+        { id: "b", label: "Deletes categories" },
+        { id: "c", label: "Creates schemas" },
+        { id: "d", label: "Changes ports" },
+      ],
+      correctOptionId: "a",
+      explanation: "Partitions split the window into groups.",
+    },
+    {
+      id: "q4",
+      prompt: "ROW_NUMBER() assigns:",
+      options: [
+        { id: "a", label: "Unique positions even when values tie" },
+        { id: "b", label: "The same number to every row" },
+        { id: "c", label: "NULL always" },
+        { id: "d", label: "Foreign keys" },
+      ],
+      correctOptionId: "a",
+      explanation: "ROW_NUMBER never shares a number within the partition.",
+    },
+    {
+      id: "q5",
+      prompt: "RANK() with ties:",
+      options: [
+        { id: "a", label: "Shares ranks and skips subsequent numbers" },
+        { id: "b", label: "Never allows ties" },
+        { id: "c", label: "Deletes tied rows" },
+        { id: "d", label: "Requires CROSS JOIN" },
+      ],
+      correctOptionId: "a",
+      explanation: "RANK leaves gaps after ties.",
+    },
+    {
+      id: "q6",
+      prompt: "DENSE_RANK() with ties:",
+      options: [
+        { id: "a", label: "Shares ranks without gaps" },
+        { id: "b", label: "Removes all rows" },
+        { id: "c", label: "Creates indexes" },
+        { id: "d", label: "Starts replication" },
+      ],
+      correctOptionId: "a",
+      explanation: "DENSE_RANK does not skip numbers after ties.",
+    },
+    {
+      id: "q7",
+      prompt: "LAG(price) looks at:",
+      options: [
+        { id: "a", label: "The previous row in the window order" },
+        { id: "b", label: "The next schema" },
+        { id: "c", label: "The OS kernel" },
+        { id: "d", label: "DNS TXT records" },
+      ],
+      correctOptionId: "a",
+      explanation: "LAG reads earlier rows in the ordered window.",
+    },
+    {
+      id: "q8",
+      prompt: "SUM(qty) OVER (ORDER BY ordered_at) can compute:",
+      options: [
+        { id: "a", label: "A running total" },
+        { id: "b", label: "A new database" },
+        { id: "c", label: "A revoked role" },
+        { id: "d", label: "A tablespace" },
+      ],
+      correctOptionId: "a",
+      explanation: "Ordered window aggregates accumulate.",
+    },
+    {
+      id: "q9",
+      prompt: "To keep only the top row per category with ROW_NUMBER:",
+      options: [
+        { id: "a", label: "Filter WHERE rn = 1 in an outer query" },
+        { id: "b", label: "Use DELETE category" },
+        { id: "c", label: "Use GRANT" },
+        { id: "d", label: "Use LISTEN" },
+      ],
+      correctOptionId: "a",
+      explanation: "Number rows in a subquery/CTE, then keep rn = 1.",
+    },
+    {
+      id: "q10",
+      prompt: "Window ORDER BY inside OVER:",
+      options: [
+        { id: "a", label: "Defines peer order for the window calculation" },
+        { id: "b", label: "Replaces FROM" },
+        { id: "c", label: "Drops the table" },
+        { id: "d", label: "Creates a user" },
+      ],
+      correctOptionId: "a",
+      explanation: "Window ordering is separate from the final SELECT ORDER BY.",
+    },
+  ],
+};

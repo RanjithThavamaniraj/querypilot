@@ -42,10 +42,66 @@ export function mapPostgresError(message: string): MappedError {
     };
   }
 
+  if (lower.includes("ambiguous")) {
+    return {
+      beginnerMessage: "PostgreSQL does not know which table a column belongs to.",
+      hint: "When tables share a column name (like `id` or `name`), qualify it: `customers.name` or `c.name`.",
+    };
+  }
+
+  if (
+    lower.includes("must appear in the group by") ||
+    lower.includes("not in aggregate") ||
+    lower.includes("grouping error")
+  ) {
+    return {
+      beginnerMessage:
+        "This column is not grouped. With GROUP BY, every selected column must be grouped or used inside an aggregate like COUNT or SUM.",
+      hint: "Add the column to GROUP BY, or wrap it in COUNT/SUM/AVG/MIN/MAX.",
+    };
+  }
+
+  if (lower.includes("duplicate key") || lower.includes("unique constraint")) {
+    return {
+      beginnerMessage: "That row would duplicate a value that must stay unique (usually an id).",
+      hint: "Pick a new id that is not already in the table.",
+    };
+  }
+
+  if (
+    lower.includes("foreign key") ||
+    lower.includes("violates foreign key") ||
+    lower.includes("is not present in table")
+  ) {
+    return {
+      beginnerMessage:
+        "This change breaks a table relationship. An order must point at a real customer and product.",
+      hint: "Check that customer_id and product_id exist before inserting or updating an order.",
+    };
+  }
+
+  if (lower.includes("not-null") || lower.includes("null value in column")) {
+    return {
+      beginnerMessage: "A required column is missing a value (NULL is not allowed there).",
+      hint: "Include every NOT NULL column in your INSERT, or set it in UPDATE.",
+    };
+  }
+
+  if (
+    lower.includes("current transaction is aborted") ||
+    lower.includes("in failed sql transaction")
+  ) {
+    return {
+      beginnerMessage:
+        "An earlier statement in this transaction failed, so PostgreSQL rejected the rest.",
+      hint: "ROLLBACK, fix the failing statement, then try again from BEGIN.",
+    };
+  }
+
   if (lower.includes("permission denied") || lower.includes("must be owner")) {
     return {
       beginnerMessage: "This practice role is not allowed to run that kind of statement.",
-      hint: "In Module 1, stick to SELECT queries that read from the shop tables.",
+      hint: "Use SELECT, INSERT, UPDATE, or DELETE on the shop practice tables. Writes never change the shared dataset.",
     };
   }
 
@@ -53,6 +109,13 @@ export function mapPostgresError(message: string): MappedError {
     return {
       beginnerMessage: "The query took too long and was stopped.",
       hint: "Simplify the query or add a WHERE clause. Practice queries should stay small.",
+    };
+  }
+
+  if (lower.includes("permission denied to create temporary") || lower.includes("temp")) {
+    return {
+      beginnerMessage: "The practice database is missing temporary-table permission.",
+      hint: "Re-run scripts/lab/setup.sh so querypilot_learner can use a private practice copy.",
     };
   }
 

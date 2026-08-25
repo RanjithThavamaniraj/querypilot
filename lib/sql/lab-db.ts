@@ -1,16 +1,11 @@
 import postgres from "postgres";
 
-const labUrl = process.env.LAB_DATABASE_URL;
-
-if (!labUrl) {
-  console.warn("LAB_DATABASE_URL is not set — SQL practice will be unavailable");
-}
-
 const globalForLab = globalThis as unknown as {
   labSql?: ReturnType<typeof postgres>;
 };
 
 function createLabClient() {
+  const labUrl = process.env.LAB_DATABASE_URL;
   if (!labUrl) {
     throw new Error(
       "LAB_DATABASE_URL is not configured. Run scripts/lab/setup.sh and set LAB_DATABASE_URL to the querypilot_learner role."
@@ -18,10 +13,6 @@ function createLabClient() {
   }
 
   // Runtime must use the restricted learner role URL — never a superuser/provisioning account.
-  if (/\/\/[^/@]*@(?:localhost|127\.0\.0\.1)/.test(labUrl) === false) {
-    // Allow other hosts; still reject obvious superuser names in local/dev when present.
-  }
-
   const forbiddenUser = /:\/\/(postgres|root|admin|supabase_admin):/i.test(labUrl);
   if (forbiddenUser) {
     throw new Error(
@@ -38,6 +29,10 @@ function createLabClient() {
   });
 }
 
+/**
+ * Lazy lab SQL accessor for the pooled read path.
+ * Lazy accessor — LAB_DATABASE_URL is read on first runtime use, not at import time.
+ */
 export function getLabSql() {
   if (!globalForLab.labSql) {
     globalForLab.labSql = createLabClient();
@@ -45,6 +40,16 @@ export function getLabSql() {
   return globalForLab.labSql;
 }
 
+export function getLabUrl() {
+  const labUrl = process.env.LAB_DATABASE_URL;
+  if (!labUrl) {
+    throw new Error(
+      "LAB_DATABASE_URL is not configured. Run scripts/lab/setup.sh and set LAB_DATABASE_URL to the querypilot_learner role."
+    );
+  }
+  return labUrl;
+}
+
 export function isLabConfigured() {
-  return Boolean(labUrl);
+  return Boolean(process.env.LAB_DATABASE_URL);
 }

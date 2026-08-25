@@ -1,7 +1,7 @@
 import { and, eq, inArray, sql } from "drizzle-orm";
 import { cookies } from "next/headers";
 
-import { db } from "@/lib/db";
+import { getDb } from "@/lib/db";
 import {
   conceptProgress,
   exerciseAttempts,
@@ -51,7 +51,7 @@ export async function getGuestUserIdOrNull() {
   const existing = cookieStore.get(LEARNER_COOKIE)?.value;
   if (!existing) return null;
 
-  const [found] = await db
+  const [found] = await getDb()
     .select({ id: users.id })
     .from(users)
     .where(eq(users.id, existing))
@@ -66,7 +66,7 @@ export async function ensureGuestUserId() {
   if (existing) return existing;
 
   const cookieStore = await cookies();
-  const [created] = await db
+  const [created] = await getDb()
     .insert(users)
     .values({ kind: "guest" })
     .returning({ id: users.id });
@@ -91,7 +91,7 @@ export async function getLearnerProgress(
 
   const lessons = getPathLessons(pathSlug);
 
-  const rows = await db
+  const rows = await getDb()
     .select()
     .from(lessonProgress)
     .where(
@@ -123,7 +123,7 @@ export async function getLearnerProgress(
   const quizRows =
     quizIds.length === 0
       ? []
-      : await db
+      : await getDb()
           .select()
           .from(quizAttempts)
           .where(
@@ -149,7 +149,7 @@ export async function getLearnerProgress(
     }
   );
 
-  const conceptRows = await db
+  const conceptRows = await getDb()
     .select()
     .from(conceptProgress)
     .where(eq(conceptProgress.userId, userId));
@@ -169,7 +169,7 @@ export async function markLessonStarted(pathSlug: string, lessonSlug: string) {
   const userId = await ensureGuestUserId();
   const now = new Date();
 
-  await db
+  await getDb()
     .insert(lessonProgress)
     .values({
       userId,
@@ -197,7 +197,7 @@ export async function markLessonCompleted(pathSlug: string, lessonSlug: string) 
   const userId = await ensureGuestUserId();
   const now = new Date();
 
-  await db
+  await getDb()
     .insert(lessonProgress)
     .values({
       userId,
@@ -227,7 +227,7 @@ export async function recordConceptSeen(conceptId: string, layer = 0) {
   const userId = await ensureGuestUserId();
   const now = new Date();
 
-  await db
+  await getDb()
     .insert(conceptProgress)
     .values({
       userId,
@@ -256,7 +256,7 @@ export async function recordQuizAttempt(input: {
 }) {
   const userId = await ensureGuestUserId();
 
-  await db.insert(quizAttempts).values({
+  await getDb().insert(quizAttempts).values({
     userId,
     quizId: input.quizId,
     score: input.score,
@@ -285,7 +285,7 @@ export async function recordExerciseAttempt(input: {
 }) {
   const userId = await ensureGuestUserId();
 
-  await db.insert(exerciseAttempts).values({
+  await getDb().insert(exerciseAttempts).values({
     userId,
     exerciseId: input.exerciseId,
     pathSlug: input.pathSlug,

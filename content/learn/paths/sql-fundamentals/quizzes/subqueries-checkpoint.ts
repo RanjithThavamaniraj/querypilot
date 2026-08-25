@@ -1,0 +1,130 @@
+import type { QuizDefinition } from "@/lib/learn/types";
+
+export const subqueriesCheckpoint: QuizDefinition = {
+  id: "subqueries-checkpoint",
+  title: "Subqueries Checkpoint",
+  description: "Scalar subqueries, IN, and EXISTS.",
+  passScore: 7,
+  questions: [
+    {
+      id: "q1",
+      prompt: "A subquery is:",
+      options: [
+        { id: "a", label: "A query nested inside another statement" },
+        { id: "b", label: "A new database" },
+        { id: "c", label: "A CSS rule" },
+        { id: "d", label: "A backup file" },
+      ],
+      correctOptionId: "a",
+      explanation: "Subqueries nest SELECTs inside larger SQL.",
+    },
+    {
+      id: "q2",
+      prompt: "WHERE price > (SELECT AVG(price) FROM products) uses a:",
+      options: [
+        { id: "a", label: "Scalar subquery" },
+        { id: "b", label: "DELETE trigger" },
+        { id: "c", label: "Replication slot" },
+        { id: "d", label: "Tablespace" },
+      ],
+      correctOptionId: "a",
+      explanation: "The subquery returns one value to compare against.",
+    },
+    {
+      id: "q3",
+      prompt: "IN (SELECT customer_id FROM orders) checks:",
+      options: [
+        { id: "a", label: "Membership in the subquery’s values" },
+        { id: "b", label: "File permissions" },
+        { id: "c", label: "SSL certificates" },
+        { id: "d", label: "Memory size" },
+      ],
+      correctOptionId: "a",
+      explanation: "IN tests whether a value appears in a list/result.",
+    },
+    {
+      id: "q4",
+      prompt: "EXISTS returns true when:",
+      options: [
+        { id: "a", label: "The subquery finds at least one row" },
+        { id: "b", label: "The subquery returns NULL only" },
+        { id: "c", label: "The table is dropped" },
+        { id: "d", label: "You omit FROM" },
+      ],
+      correctOptionId: "a",
+      explanation: "EXISTS cares about presence, not the selected values.",
+    },
+    {
+      id: "q5",
+      prompt: "A correlated subquery:",
+      options: [
+        { id: "a", label: "References columns from the outer query" },
+        { id: "b", label: "Cannot use WHERE" },
+        { id: "c", label: "Always deletes rows" },
+        { id: "d", label: "Requires CROSS JOIN" },
+      ],
+      correctOptionId: "a",
+      explanation: "Correlation ties the inner query to each outer row.",
+    },
+    {
+      id: "q6",
+      prompt: "NOT EXISTS is useful to find:",
+      options: [
+        { id: "a", label: "Parents with no related children rows" },
+        { id: "b", label: "Only the maximum id" },
+        { id: "c", label: "Disk free space" },
+        { id: "d", label: "CSS classes" },
+      ],
+      correctOptionId: "a",
+      explanation: "NOT EXISTS expresses “no matching related row”.",
+    },
+    {
+      id: "q7",
+      prompt: "Prefer a JOIN when you need:",
+      options: [
+        { id: "a", label: "Columns from multiple tables in the result" },
+        { id: "b", label: "To disable NULL" },
+        { id: "c", label: "To create roles" },
+        { id: "d", label: "To rename the cluster" },
+      ],
+      correctOptionId: "a",
+      explanation: "Joins naturally project columns from each side.",
+    },
+    {
+      id: "q8",
+      prompt: "Prefer EXISTS when you mainly need to:",
+      options: [
+        { id: "a", label: "Test whether related rows exist" },
+        { id: "b", label: "Compute AVG of all prices twice" },
+        { id: "c", label: "Create an index" },
+        { id: "d", label: "Change search_path" },
+      ],
+      correctOptionId: "a",
+      explanation: "EXISTS is a presence test.",
+    },
+    {
+      id: "q9",
+      prompt: "WHERE price = (SELECT MAX(price) FROM products) returns:",
+      options: [
+        { id: "a", label: "Rows matching the highest price" },
+        { id: "b", label: "All rows always" },
+        { id: "c", label: "No columns" },
+        { id: "d", label: "A new table permanently" },
+      ],
+      correctOptionId: "a",
+      explanation: "Compare each row to the maximum.",
+    },
+    {
+      id: "q10",
+      prompt: "Subqueries are processed by PostgreSQL as part of:",
+      options: [
+        { id: "a", label: "The same query-flow pipeline as other SQL" },
+        { id: "b", label: "The browser only" },
+        { id: "c", label: "DNS" },
+        { id: "d", label: "Git" },
+      ],
+      correctOptionId: "a",
+      explanation: "Nested SQL still goes through parse/plan/execute.",
+    },
+  ],
+};

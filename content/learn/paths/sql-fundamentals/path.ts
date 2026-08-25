@@ -24,20 +24,69 @@ import {
   whereOrderBy,
   whereOrderLimit,
 } from "./lessons/part-3";
+import {
+  deleteLesson,
+  insertLesson,
+  safeDataChanges,
+  transactionsLesson,
+  updateLesson,
+  workingWithDataCheckpointLesson,
+} from "./lessons/part-4";
+import {
+  caseExpressions,
+  expressionsLesson,
+  functionsCheckpointLesson,
+  nullAndCoalesce,
+  sqlFunctionsLesson,
+} from "./lessons/part-5";
+import {
+  aggregateFunctions,
+  aggregationCheckpointLesson,
+  groupByLesson,
+  havingLesson,
+} from "./lessons/part-6";
+import {
+  innerJoinLesson,
+  joiningMultipleTables,
+  joinMistakes,
+  joinsCheckpointLesson,
+  leftJoinLesson,
+  otherJoins,
+  whyJoins,
+} from "./lessons/part-7";
+import {
+  existsAndCorrelated,
+  joinsVsSubqueries,
+  subqueriesCheckpointLesson,
+  subqueriesLesson,
+} from "./lessons/part-8";
+import {
+  composingCtes,
+  ctesCheckpointLesson,
+  ctesLesson,
+  recursiveCtes,
+} from "./lessons/part-9";
+import {
+  lagLeadRunning,
+  rankingWindows,
+  windowFunctionsCheckpointLesson,
+  windowFunctionsLesson,
+} from "./lessons/part-10";
+import { sqlFundamentalsAssessmentLesson } from "./lessons/part-11";
 import type { PathDefinition } from "@/lib/learn/types";
 
 export const sqlFundamentalsPath: PathDefinition = {
   slug: "sql-fundamentals",
   title: "SQL Fundamentals",
   description:
-    "Learn SQL by writing and running real queries against a PostgreSQL practice database—from SELECT and filtering through sorting and limiting.",
+    "Learn practical SQL against a live PostgreSQL shop dataset—from SELECT through joins, subqueries, CTEs, window functions, and a final assessment.",
   levelLabel: "Level 1",
   modules: [
     {
       slug: "sql-basics",
-      title: "SQL Basics",
+      title: "Lessons",
       description:
-        "SELECT, filtering, ORDER BY, LIMIT/OFFSET, and practical challenges—with a live SQL editor against the shop dataset.",
+        "SELECT, filtering, sorting, data changes, functions, aggregation, joins, subqueries, CTEs, and window functions—with a live SQL editor.",
       lessons: [
         whatIsSql,
         yourFirstSelect,
@@ -59,6 +108,41 @@ export const sqlFundamentalsPath: PathDefinition = {
         sortingPatterns,
         sortingCommonMistakes,
         sortingLimitingCheckpointLesson,
+        insertLesson,
+        updateLesson,
+        deleteLesson,
+        transactionsLesson,
+        safeDataChanges,
+        workingWithDataCheckpointLesson,
+        expressionsLesson,
+        sqlFunctionsLesson,
+        caseExpressions,
+        nullAndCoalesce,
+        functionsCheckpointLesson,
+        aggregateFunctions,
+        groupByLesson,
+        havingLesson,
+        aggregationCheckpointLesson,
+        whyJoins,
+        innerJoinLesson,
+        leftJoinLesson,
+        otherJoins,
+        joiningMultipleTables,
+        joinMistakes,
+        joinsCheckpointLesson,
+        subqueriesLesson,
+        existsAndCorrelated,
+        joinsVsSubqueries,
+        subqueriesCheckpointLesson,
+        ctesLesson,
+        composingCtes,
+        recursiveCtes,
+        ctesCheckpointLesson,
+        windowFunctionsLesson,
+        rankingWindows,
+        lagLeadRunning,
+        windowFunctionsCheckpointLesson,
+        sqlFundamentalsAssessmentLesson,
       ],
     },
   ],

@@ -1,0 +1,130 @@
+import type { QuizDefinition } from "@/lib/learn/types";
+
+export const joinsCheckpoint: QuizDefinition = {
+  id: "joins-checkpoint",
+  title: "Joins Checkpoint",
+  description: "INNER JOIN, LEFT JOIN, multi-table joins, and pitfalls.",
+  passScore: 7,
+  questions: [
+    {
+      id: "q1",
+      prompt: "Why do joins exist?",
+      options: [
+        { id: "a", label: "To combine related rows from multiple tables" },
+        { id: "b", label: "To delete databases" },
+        { id: "c", label: "To create users" },
+        { id: "d", label: "To style HTML" },
+      ],
+      correctOptionId: "a",
+      explanation: "Joins reconnect data that was normalized into separate tables.",
+    },
+    {
+      id: "q2",
+      prompt: "orders.customer_id typically references:",
+      options: [
+        { id: "a", label: "customers.id" },
+        { id: "b", label: "products.price" },
+        { id: "c", label: "orders.quantity" },
+        { id: "d", label: "A random UUID always" },
+      ],
+      correctOptionId: "a",
+      explanation: "customer_id is a foreign key to customers.",
+    },
+    {
+      id: "q3",
+      prompt: "INNER JOIN returns:",
+      options: [
+        { id: "a", label: "Only matching rows from both sides" },
+        { id: "b", label: "All left rows even without matches" },
+        { id: "c", label: "All database names" },
+        { id: "d", label: "Only NULL rows" },
+      ],
+      correctOptionId: "a",
+      explanation: "Inner joins keep matches.",
+    },
+    {
+      id: "q4",
+      prompt: "LEFT JOIN keeps:",
+      options: [
+        { id: "a", label: "All left-table rows; missing right columns are NULL" },
+        { id: "b", label: "Only right-table rows" },
+        { id: "c", label: "No rows ever" },
+        { id: "d", label: "Only duplicate keys" },
+      ],
+      correctOptionId: "a",
+      explanation: "Left join preserves the left side.",
+    },
+    {
+      id: "q5",
+      prompt: "Customers with no orders can be found with:",
+      options: [
+        { id: "a", label: "LEFT JOIN ... WHERE order id IS NULL" },
+        { id: "b", label: "INNER JOIN only" },
+        { id: "c", label: "DELETE customers" },
+        { id: "d", label: "CROSS JOIN without filter" },
+      ],
+      correctOptionId: "a",
+      explanation: "Unmatched left rows have NULL on the right side.",
+    },
+    {
+      id: "q6",
+      prompt: "A forgotten ON clause often causes:",
+      options: [
+        { id: "a", label: "An accidental Cartesian product" },
+        { id: "b", label: "Faster unique indexes" },
+        { id: "c", label: "Automatic VACUUM" },
+        { id: "d", label: "A new schema" },
+      ],
+      correctOptionId: "a",
+      explanation: "Missing join conditions multiply rows.",
+    },
+    {
+      id: "q7",
+      prompt: "CROSS JOIN returns:",
+      options: [
+        { id: "a", label: "Every combination of rows" },
+        { id: "b", label: "Only primary keys" },
+        { id: "c", label: "A single NULL" },
+        { id: "d", label: "Nothing useful ever" },
+      ],
+      correctOptionId: "a",
+      explanation: "Cross join is the Cartesian product.",
+    },
+    {
+      id: "q8",
+      prompt: "Ambiguous column id after joining two tables means:",
+      options: [
+        { id: "a", label: "Qualify the column with a table/alias" },
+        { id: "b", label: "The database is corrupt" },
+        { id: "c", label: "You must DROP the column" },
+        { id: "d", label: "Use VACUUM" },
+      ],
+      correctOptionId: "a",
+      explanation: "Both tables may have id—use c.id or o.id.",
+    },
+    {
+      id: "q9",
+      prompt: "Joining customers → orders → products follows:",
+      options: [
+        { id: "a", label: "Foreign key relationships" },
+        { id: "b", label: "Alphabetical table names only" },
+        { id: "c", label: "CSS selectors" },
+        { id: "d", label: "Random chance" },
+      ],
+      correctOptionId: "a",
+      explanation: "Join along the keys that relate the tables.",
+    },
+    {
+      id: "q10",
+      prompt: "FULL OUTER JOIN keeps:",
+      options: [
+        { id: "a", label: "Unmatched rows from both sides (plus matches)" },
+        { id: "b", label: "Only inner matches" },
+        { id: "c", label: "Only the left table" },
+        { id: "d", label: "Only empty strings" },
+      ],
+      correctOptionId: "a",
+      explanation: "Full outer join preserves unmatched rows from both inputs.",
+    },
+  ],
+};

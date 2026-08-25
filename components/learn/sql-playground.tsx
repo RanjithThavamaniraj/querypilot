@@ -139,7 +139,17 @@ export function SqlPlayground({
           </div>
         )}
 
-        {outcome?.ok && <SqlResultTable result={outcome.result} />}
+        {outcome?.ok && (
+          <>
+            {outcome.result.sandboxed && (
+              <p className="text-xs text-muted-foreground">
+                Practice writes use a private copy of the shop data and are
+                discarded after this run. The shared dataset is unchanged.
+              </p>
+            )}
+            <SqlResultTable result={outcome.result} />
+          </>
+        )}
 
         {checkFeedback && (
           <div

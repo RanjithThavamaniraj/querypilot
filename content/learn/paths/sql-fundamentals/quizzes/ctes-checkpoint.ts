@@ -1,0 +1,130 @@
+import type { QuizDefinition } from "@/lib/learn/types";
+
+export const ctesCheckpoint: QuizDefinition = {
+  id: "ctes-checkpoint",
+  title: "CTEs Checkpoint",
+  description: "WITH clauses, composition, and recursive intro.",
+  passScore: 7,
+  questions: [
+    {
+      id: "q1",
+      prompt: "A CTE is introduced with:",
+      options: [
+        { id: "a", label: "WITH" },
+        { id: "b", label: "VACUUM" },
+        { id: "c", label: "GRANT" },
+        { id: "d", label: "LISTEN" },
+      ],
+      correctOptionId: "a",
+      explanation: "WITH names a common table expression.",
+    },
+    {
+      id: "q2",
+      prompt: "CTEs are mainly useful for:",
+      options: [
+        { id: "a", label: "Structuring complex SQL readably" },
+        { id: "b", label: "Replacing primary keys" },
+        { id: "c", label: "Turning off WAL" },
+        { id: "d", label: "Configuring DNS" },
+      ],
+      correctOptionId: "a",
+      explanation: "Readability and stepwise computation are the usual wins.",
+    },
+    {
+      id: "q3",
+      prompt: "You can define multiple CTEs by:",
+      options: [
+        { id: "a", label: "Separating them with commas after WITH" },
+        { id: "b", label: "Using only CROSS JOIN" },
+        { id: "c", label: "Deleting FROM" },
+        { id: "d", label: "Calling VACUUM between each" },
+      ],
+      correctOptionId: "a",
+      explanation: "WITH a AS (...), b AS (...) SELECT ...",
+    },
+    {
+      id: "q4",
+      prompt: "A CTE can be joined like:",
+      options: [
+        { id: "a", label: "A temporary named result" },
+        { id: "b", label: "A Linux process" },
+        { id: "c", label: "A CSS class" },
+        { id: "d", label: "A TLS certificate" },
+      ],
+      correctOptionId: "a",
+      explanation: "Outer queries can SELECT FROM the CTE name.",
+    },
+    {
+      id: "q5",
+      prompt: "WITH RECURSIVE is for:",
+      options: [
+        { id: "a", label: "Queries that build on their own previous rows" },
+        { id: "b", label: "Deleting recursively forever with no stop" },
+        { id: "c", label: "Creating users only" },
+        { id: "d", label: "Disabling NULL" },
+      ],
+      correctOptionId: "a",
+      explanation: "Recursive CTEs iterate until a stop condition.",
+    },
+    {
+      id: "q6",
+      prompt: "Recursive CTEs need:",
+      options: [
+        { id: "a", label: "An anchor member and a recursive member" },
+        { id: "b", label: "A new cluster" },
+        { id: "c", label: "Superuser always" },
+        { id: "d", label: "No SELECT" },
+      ],
+      correctOptionId: "a",
+      explanation: "Anchor starts; recursive step continues.",
+    },
+    {
+      id: "q7",
+      prompt: "Compared with nested subqueries, CTEs often:",
+      options: [
+        { id: "a", label: "Read top-down more clearly" },
+        { id: "b", label: "Disable indexes forever" },
+        { id: "c", label: "Bypass PostgreSQL" },
+        { id: "d", label: "Require CROSS JOIN" },
+      ],
+      correctOptionId: "a",
+      explanation: "Named steps are easier to follow.",
+    },
+    {
+      id: "q8",
+      prompt: "Aggregating inside a CTE then joining is useful to:",
+      options: [
+        { id: "a", label: "Separate summary logic from presentation" },
+        { id: "b", label: "Drop the database" },
+        { id: "c", label: "Create tablespaces" },
+        { id: "d", label: "Change the port" },
+      ],
+      correctOptionId: "a",
+      explanation: "Compute summaries first, then enrich with joins.",
+    },
+    {
+      id: "q9",
+      prompt: "For everyday app SQL, recursive CTEs are:",
+      options: [
+        { id: "a", label: "Occasionally useful; know the pattern, don’t overuse" },
+        { id: "b", label: "Required in every SELECT" },
+        { id: "c", label: "Illegal in PostgreSQL" },
+        { id: "d", label: "Only for DELETE" },
+      ],
+      correctOptionId: "a",
+      explanation: "Introduction is enough for fundamentals.",
+    },
+    {
+      id: "q10",
+      prompt: "WITH expensive AS (SELECT ...) SELECT * FROM expensive reads:",
+      options: [
+        { id: "a", label: "From the CTE named expensive" },
+        { id: "b", label: "From a Linux file" },
+        { id: "c", label: "From the app database only" },
+        { id: "d", label: "From DNS" },
+      ],
+      correctOptionId: "a",
+      explanation: "The outer query uses the CTE name.",
+    },
+  ],
+};

@@ -3,19 +3,21 @@
 
 TRUNCATE shop.orders, shop.products, shop.customers RESTART IDENTITY;
 
-INSERT INTO shop.customers (id, name, email, country, created_at) VALUES
-  (1,  'Aisha Khan',     'aisha@example.com',   'India',         '2024-01-12'),
-  (2,  'Liam Chen',      'liam@example.com',    'Canada',        '2024-02-03'),
-  (3,  'Sofia Rossi',    'sofia@example.com',   'Italy',         '2024-02-18'),
-  (4,  'Noah Patel',     'noah@example.com',    'India',         '2024-03-01'),
-  (5,  'Emma Johansson', 'emma@example.com',    'Sweden',        '2024-03-14'),
-  (6,  'Mateo Garcia',   'mateo@example.com',   'Spain',         '2024-04-02'),
-  (7,  'Priya Sharma',   'priya@example.com',   'India',         '2024-04-21'),
-  (8,  'James Okonkwo',  'james@example.com',   'Nigeria',       '2024-05-09'),
-  (9,  'Hana Suzuki',    'hana@example.com',    'Japan',         '2024-05-27'),
-  (10, 'Olivia Brown',   'olivia@example.com',  'United States', '2024-06-11'),
-  (11, 'Arjun Mehta',    'arjun@example.com',   'India',         '2024-06-30'),
-  (12, 'Chloe Martin',   'chloe@example.com',   'France',        '2024-07-15');
+INSERT INTO shop.customers (id, name, email, country, created_at, phone) VALUES
+  (1,  'Aisha Khan',     'aisha@example.com',   'India',         '2024-01-12', '555-0101'),
+  (2,  'Liam Chen',      'liam@example.com',    'Canada',        '2024-02-03', '555-0102'),
+  (3,  'Sofia Rossi',    'sofia@example.com',   'Italy',         '2024-02-18', NULL),
+  (4,  'Noah Patel',     'noah@example.com',    'India',         '2024-03-01', '555-0104'),
+  (5,  'Emma Johansson', 'emma@example.com',    'Sweden',        '2024-03-14', NULL),
+  (6,  'Mateo Garcia',   'mateo@example.com',   'Spain',         '2024-04-02', '  555-0106  '),
+  (7,  'Priya Sharma',   'priya@example.com',   'India',         '2024-04-21', '555-0107'),
+  (8,  'James Okonkwo',  'james@example.com',   'Nigeria',       '2024-05-09', NULL),
+  (9,  'Hana Suzuki',    'hana@example.com',    'Japan',         '2024-05-27', '555-0109'),
+  (10, 'Olivia Brown',   'olivia@example.com',  'United States', '2024-06-11', NULL),
+  (11, 'Arjun Mehta',    'arjun@example.com',   'India',         '2024-06-30', '555-0111'),
+  (12, 'Chloe Martin',   'chloe@example.com',   'France',        '2024-07-15', NULL),
+  (13, 'Yuki Tanaka',    'yuki@example.com',    'Japan',         '2024-08-01', NULL),
+  (14, 'Guest User',     'guest@example.com',   'India',         '2024-08-12', '');
 
 INSERT INTO shop.products (id, name, category, price) VALUES
   (1,  'USB-C Hub',           'Accessories', 29.99),
@@ -29,7 +31,8 @@ INSERT INTO shop.products (id, name, category, price) VALUES
   (9,  'External SSD 1TB',    'Storage',     99.00),
   (10, 'Webcam HD',           'Accessories', 59.00),
   (11, 'Laptop Sleeve',       'Accessories', 19.00),
-  (12, 'Bluetooth Speaker',   'Audio',       45.00);
+  (12, 'Bluetooth Speaker',   'Audio',       45.00),
+  (13, 'Gift Card',           'Other',       25.00);
 
 INSERT INTO shop.orders (id, customer_id, product_id, quantity, ordered_at) VALUES
   (1,  1,  2, 1, '2024-07-01'),

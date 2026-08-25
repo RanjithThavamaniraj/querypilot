@@ -8,6 +8,8 @@ export type SqlResultSet = {
   rowCount: number;
   truncated: boolean;
   durationMs: number;
+  command?: string;
+  sandboxed?: boolean;
 };
 
 export type SqlExecutionSuccess = {
@@ -25,7 +27,8 @@ export type SqlExecutionFailure = {
 export type SqlExecutionOutcome = SqlExecutionSuccess | SqlExecutionFailure;
 
 export const SQL_EXECUTION_LIMITS = {
-  maxSqlLength: 4_000,
+  maxSqlLength: 8_000,
+  maxStatements: 20,
   maxRows: 200,
   maxPayloadChars: 100_000,
   statementTimeoutMs: 2_000,
