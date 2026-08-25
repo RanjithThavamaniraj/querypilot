@@ -6,6 +6,7 @@ import { architectureBeginnerCheckpoint } from "@/content/learn/paths/foundation
 import { sqlChallenges } from "@/content/learn/paths/sql-fundamentals/exercises/sql-challenges";
 import { sqlFundamentalsPath } from "@/content/learn/paths/sql-fundamentals/path";
 import { sqlBasicsCheckpoint } from "@/content/learn/paths/sql-fundamentals/quizzes/sql-basics-checkpoint";
+import { sortingLimitingCheckpoint } from "@/content/learn/paths/sql-fundamentals/quizzes/sorting-limiting-checkpoint";
 import type {
   ExerciseDefinition,
   LessonDefinition,
@@ -27,6 +28,7 @@ const sqlChallengeMap: Record<string, SqlChallengeDefinition> = Object.fromEntri
 const quizzes: Record<string, QuizDefinition> = {
   [architectureBeginnerCheckpoint.id]: architectureBeginnerCheckpoint,
   [sqlBasicsCheckpoint.id]: sqlBasicsCheckpoint,
+  [sortingLimitingCheckpoint.id]: sortingLimitingCheckpoint,
 };
 
 export function listPaths() {
