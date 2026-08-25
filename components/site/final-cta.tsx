@@ -18,11 +18,11 @@ export function FinalCta() {
             the learning paths, labs, and tools as they launch.
           </p>
           <Button
-            render={<Link href="#" />}
+            render={<Link href="/learn" />}
             nativeButton={false}
             className="mt-10 h-12 rounded-full px-8 text-base"
           >
-            Get Early Access
+            Start learning
             <ArrowRight data-icon="inline-end" />
           </Button>
         </div>

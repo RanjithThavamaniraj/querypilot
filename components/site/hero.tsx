@@ -6,29 +6,7 @@ import { ArrowRight } from "lucide-react";
 
 import { Logo } from "@/components/site/logo";
 
-const navigation = [
-  { label: "Learning", href: "/learn" },
-  { label: "Labs", href: "#features" },
-  { label: "AI", href: "#ai" },
-  { label: "Tools", href: "#tools" },
-  { label: "Docs", href: "#" },
-  { label: "Pricing", href: "#" },
-];
-
-const socials = [
-  {
-    name: "GitHub",
-    path: "M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.09.68-.22.68-.49 0-.24-.01-.88-.01-1.72-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05a9.36 9.36 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.59.69.49A10.03 10.03 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z",
-  },
-  {
-    name: "X",
-    path: "M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.67l7.73-8.84L1.25 2.25h6.83l4.71 6.23 5.45-6.23Zm-1.16 17.52h1.83L7.08 4.13H5.12l11.96 15.64Z",
-  },
-  {
-    name: "Discord",
-    path: "M20.32 4.37a19.8 19.8 0 0 0-4.93-1.51 13.78 13.78 0 0 0-.64 1.28 18.27 18.27 0 0 0-5.5 0 12.64 12.64 0 0 0-.64-1.28c-1.71.29-3.37.8-4.93 1.51A20.26 20.26 0 0 0 .1 18.06a19.9 19.9 0 0 0 6.07 3.03c.49-.66.93-1.37 1.3-2.1a12.9 12.9 0 0 1-2.05-.98c.17-.12.34-.25.5-.38a14.2 14.2 0 0 0 12.16 0c.17.13.33.26.5.38-.65.39-1.34.71-2.05.98.38.73.81 1.44 1.3 2.1a19.84 19.84 0 0 0 6.07-3.03 20.2 20.2 0 0 0-3.58-13.69ZM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.95-2.42 2.16-2.42 1.21 0 2.18 1.09 2.16 2.42 0 1.34-.95 2.42-2.16 2.42Zm7.97 0c-1.18 0-2.15-1.08-2.15-2.42 0-1.33.95-2.42 2.15-2.42 1.21 0 2.18 1.09 2.16 2.42 0 1.34-.95 2.42-2.16 2.42Z",
-  },
-];
+const navigation = [{ label: "Learning", href: "/learn" }];
 
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -151,11 +129,8 @@ export function Hero() {
           </div>
 
           <div className="flex items-center gap-4">
-            <Link href="#" className="text-sm font-medium text-white">
-              Sign In
-            </Link>
             <Link
-              href="#"
+              href="/learn"
               className="liquid-glass rounded-full px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-white/5"
             >
               Get Started
@@ -173,51 +148,20 @@ export function Hero() {
         </h1>
 
         <div className="w-full max-w-xl space-y-4">
-          <form className="liquid-glass flex items-center gap-3 rounded-full py-2 pr-2 pl-6">
-            <label className="sr-only" htmlFor="early-access-email">
-              Email address
-            </label>
-            <input
-              id="early-access-email"
-              type="email"
-              placeholder="Enter your email"
-              className="w-full bg-transparent text-base text-white outline-none placeholder:text-white/40"
-            />
-            <button
-              type="submit"
-              aria-label="Subscribe"
-              className="rounded-full bg-white p-3 text-black"
-            >
+          <Link
+            href="/learn"
+            className="liquid-glass mx-auto flex w-fit items-center gap-3 rounded-full py-3 pr-3 pl-6 text-white transition-colors hover:bg-white/5"
+          >
+            <span className="text-base">Start learning PostgreSQL</span>
+            <span className="rounded-full bg-white p-3 text-black" aria-hidden="true">
               <ArrowRight className="size-5" />
-            </button>
-          </form>
+            </span>
+          </Link>
           <p className="px-4 text-sm leading-relaxed text-white">
-            Stay updated as QueryPilot takes shape. Join the early-access list and be first to
-            know when learning paths, labs, and tools launch.
+            Foundations is live now—beginner architecture, lessons, an exercise, and a checkpoint
+            quiz with saved progress. Labs, AI, and tools are still ahead.
           </p>
         </div>
-
-        <Link
-          href="#"
-          className="liquid-glass mt-8 rounded-full px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-white/5"
-        >
-          Manifesto
-        </Link>
-      </div>
-
-      <div className="relative z-10 flex justify-center gap-4 pb-12">
-        {socials.map((social) => (
-          <a
-            key={social.name}
-            href="#"
-            aria-label={social.name}
-            className="liquid-glass rounded-full p-4 text-white/80 transition-all hover:bg-white/5 hover:text-white"
-          >
-            <svg viewBox="0 0 24 24" fill="currentColor" className="size-5" aria-hidden="true">
-              <path d={social.path} />
-            </svg>
-          </a>
-        ))}
       </div>
     </section>
   );

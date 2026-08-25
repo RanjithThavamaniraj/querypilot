@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { Reveal } from "@/components/site/reveal";
@@ -15,7 +16,15 @@ const difficultyDot: Record<Difficulty, string> = {
 const paths: {
   title: string;
   difficulty: Difficulty;
+  available?: boolean;
+  href?: string;
 }[] = [
+  {
+    title: "Foundations",
+    difficulty: "Beginner",
+    available: true,
+    href: "/learn/foundations",
+  },
   { title: "Developer", difficulty: "Beginner" },
   { title: "Database Administration", difficulty: "Intermediate" },
   { title: "Performance Tuning", difficulty: "Advanced" },
@@ -40,12 +49,9 @@ export function LearningPaths() {
       />
       <Reveal>
         <ol className="border-b border-border">
-          {paths.map((path, i) => (
-            <li key={path.title}>
-              <a
-                href="#"
-                className="group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-4 border-t border-border py-6 transition-all duration-300 hover:bg-celadon/25 sm:grid-cols-[3.5rem_1.4fr_1fr_auto] sm:px-4 sm:py-7"
-              >
+          {paths.map((path, i) => {
+            const content = (
+              <>
                 <span className="font-heading text-sm text-foreground/35 italic">
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -60,16 +66,40 @@ export function LearningPaths() {
                     {path.difficulty}
                   </span>
                   <span className="text-sm text-foreground/50">
-                    Curriculum in development
+                    {path.available ? "Available now" : "Curriculum in development"}
                   </span>
                 </div>
-                <ArrowRight className="hidden size-4 -translate-x-1 self-center text-foreground/30 transition-all duration-300 group-hover:translate-x-0 group-hover:text-ember sm:block" />
-              </a>
-            </li>
-          ))}
+                {path.available && (
+                  <ArrowRight className="hidden size-4 -translate-x-1 self-center text-foreground/30 transition-all duration-300 group-hover:translate-x-0 group-hover:text-ember sm:block" />
+                )}
+              </>
+            );
+
+            return (
+              <li key={path.title}>
+                {path.href ? (
+                  <Link
+                    href={path.href}
+                    className="group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-4 border-t border-border py-6 transition-all duration-300 hover:bg-celadon/25 sm:grid-cols-[3.5rem_1.4fr_1fr_auto] sm:px-4 sm:py-7"
+                  >
+                    {content}
+                  </Link>
+                ) : (
+                  <div className="grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-4 border-t border-border py-6 sm:grid-cols-[3.5rem_1.4fr_1fr_auto] sm:px-4 sm:py-7">
+                    {content}
+                  </div>
+                )}
+              </li>
+            );
+          })}
         </ol>
         <div className="mt-8 flex justify-end">
-          <p className="text-sm text-foreground/50">Full catalog coming soon</p>
+          <Link
+            href="/learn/foundations"
+            className="text-sm font-medium text-ember transition-colors hover:text-ember-deep"
+          >
+            Start with Foundations →
+          </Link>
         </div>
       </Reveal>
     </Section>
